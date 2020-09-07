@@ -1,0 +1,16 @@
+[0903/205058.991:ERROR:process_reader_win.cc(123)] NtOpenThread: {Отказано в доступе} Процесс запросил доступ к объекту, но права на доступ не предоставлены. (0xc0000022)
+[0903/205059.147:ERROR:exception_snapshot_win.cc(99)] thread ID 4324 not found in process
+[0903/205058.944:ERROR:process_reader_win.cc(123)] NtOpenThread: {Отказано в доступе} Процесс запросил доступ к объекту, но права на доступ не предоставлены. (0xc0000022)
+[0903/205059.100:ERROR:process_reader_win.cc(123)] NtOpenThread: {Отказано в доступе} Процесс запросил доступ к объекту, но права на доступ не предоставлены. (0xc0000022)
+[0903/205059.147:ERROR:exception_snapshot_win.cc(99)] thread ID 10480 not found in process
+[0903/205058.944:ERROR:process_reader_win.cc(123)] NtOpenThread: {Отказано в доступе} Процесс запросил доступ к объекту, но права на доступ не предоставлены. (0xc0000022)
+[0903/205058.944:ERROR:process_reader_win.cc(123)] NtOpenThread: {Отказано в доступе} Процесс запросил доступ к объекту, но права на доступ не предоставлены. (0xc0000022)
+[0903/205058.991:ERROR:process_reader_win.cc(123)] NtOpenThread: {Отказано в доступе} Процесс запросил доступ к объекту, но права на доступ не предоставлены. (0xc0000022)
+[0903/205058.944:ERROR:process_reader_win.cc(123)] NtOpenThread: {Отказано в доступе} Процесс запросил доступ к объекту, но права на доступ не предоставлены. (0xc0000022)
+[0903/205059.147:ERROR:exception_snapshot_win.cc(99)] thread ID 14100 not found in process
+[0903/205059.147:ERROR:exception_snapshot_win.cc(99)] thread ID 4912 not found in process
+[0903/205059.100:ERROR:process_reader_win.cc(123)] NtOpenThread: {Отказано в доступе} Процесс запросил доступ к объекту, но права на доступ не предоставлены. (0xc0000022)
+[0903/205059.147:ERROR:exception_snapshot_win.cc(99)] thread ID 11096 not found in process
+[0903/205059.147:ERROR:exception_snapshot_win.cc(99)] thread ID 10484 not found in process
+[0903/205059.147:ERROR:exception_snapshot_win.cc(99)] thread ID 10296 not found in process
+[0903/205059.147:ERROR:exception_snapshot_win.cc(99)] thread ID 10300 not found in process

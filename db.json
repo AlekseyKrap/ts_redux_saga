@@ -1,0 +1,136 @@
+{
+  "users.page": [
+    {
+      "id": 1,
+      "usrId": 1,
+      "login": "User#1",
+      "date": 1591625172450,
+      "page": "page1"
+    },
+    {
+      "id": 2,
+      "usrId": 1,
+      "login": "User#1",
+      "date": 1491625172450,
+      "page": "page2"
+    },
+    {
+      "id": 3,
+      "usrId": 1,
+      "login": "User#1",
+      "date": 1591525172450,
+      "page": "page1"
+    },
+    {
+      "id": 4,
+      "usrId": 1,
+      "login": "User#1",
+      "date": 1591425172450,
+      "page": "page2"
+    },
+    {
+      "id": 5,
+      "usrId": 1,
+      "login": "User#1",
+      "date": 1591325172450,
+      "page": "page1"
+    },
+    {
+      "id": 6,
+      "usrId": 2,
+      "login": "User#2",
+      "date": 1591225172450,
+      "page": "page"
+    },
+    {
+      "id": 7,
+      "usrId": 2,
+      "login": "User#2",
+      "date": 1591125172450,
+      "page": "page2"
+    },
+    {
+      "id": 8,
+      "usrId": 2,
+      "login": "User#2",
+      "date": 1591025172450,
+      "page": "page1"
+    },
+    {
+      "id": 9,
+      "usrId": 2,
+      "login": "User#2",
+      "date": 1591635172450,
+      "page": "page2"
+    },
+    {
+      "id": 10,
+      "usrId": 3,
+      "login": "User#3",
+      "date": 1591645172450,
+      "page": "page1"
+    },
+    {
+      "id": 11,
+      "usrId": 3,
+      "login": "User#3",
+      "date": 1591655172450,
+      "page": "page"
+    },
+    {
+      "id": 12,
+      "usrId": 3,
+      "login": "User#3",
+      "date": 1591665172450,
+      "page": "page2"
+    },
+    {
+      "id": 13,
+      "usrId": 3,
+      "login": "User#3",
+      "date": 1591675172450,
+      "page": "page1"
+    },
+    {
+      "id": 14,
+      "usrId": 3,
+      "login": "User#3",
+      "date": 1591685172450,
+      "page": "page"
+    }
+  ],
+  "users.logins": [
+    {
+      "id": 1,
+      "login": "User#1"
+    },
+    {
+      "id": 2,
+      "login": "User#2"
+    },
+    {
+      "id": 3,
+      "login": "User#3"
+    }
+  ],
+  "employees.list": [
+    { "id": 1, "fullName": "Joey Tribbiani" },
+    { "id": 2, "fullName": "Chandler Bing" },
+    { "id": 3, "fullName": "Ross Geller" }
+  ],
+  "employees.roleList": [
+    { "id": 1, "description": "administrator" },
+    { "id": 2, "description": "manager" },
+    { "id": 3, "description": "operator" }
+  ],  "employees.regionsList": [
+    { "id": 1, "description": "central" },
+    { "id": 2, "description": "west" },
+    { "id": 3, "description": "eastern" },
+    { "id": 4, "description": "northern" }
+  ],
+  "employees.data": [
+    { "id": 1, "role": 2, "region": 1},
+    { "id": 2, "role": 2, "region": 2},
+    { "id": 3, "role": 3, "region": 4}
+  ]
+}
