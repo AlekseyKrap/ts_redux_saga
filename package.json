@@ -41,6 +41,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test2": "yarn run test",
     "eject": "react-scripts eject",
     "format": "prettier --print-width 80  --single-quote --trailing-comma es5 --jsx-bracket-same-line  --write \"src/**/*.{ts,tsx}\" && eslint --fix \"src/**/*.{ts,tsx}\"",
     "lint": "yarn typescript && eslint \"src/**/*.{ts,tsx}\"",

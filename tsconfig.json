@@ -19,6 +19,11 @@
     "jsx": "react",
     "target": "es5"
   },
+  "types": [
+    "jest",
+    "node",
+    "react"
+  ],
   "include": [
     "src/*"
   ]
