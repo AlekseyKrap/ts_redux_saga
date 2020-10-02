@@ -8,17 +8,9 @@ import {
 } from '@redux-saga/core/effects';
 import {
   makeRequestWithSpinner,
-  OptionsType,
   TmakeRequestWithSpinner,
 } from '../../../../workers/makeRequestWithSpinner';
-import {
-  employeeData,
-  employeesDataEr,
-  employeeslist,
-  fetchEmployeeData,
-  fetchingEmployeesList,
-  setErrorEmployees,
-} from '../actions';
+import { employeeData, employeeslist } from '../actions';
 import {
   APIGetEmployeesDataById,
   APIGetlistEmployees,
@@ -29,29 +21,28 @@ import { TGetEmployeeDataByIdAsync } from '../types';
 import { TEmployeesMergeAction, TR_Employees } from '../reduser';
 import { AppState } from '../../../../init/rootReducer';
 
-const getRoleList = ({
+export const getRoleList = ({
   employees_reducer,
 }: AppState): TR_Employees['employees_RoleList'] => employees_reducer.get('employees_RoleList');
-const getRegionsList = ({
+export const getRegionsList = ({
   employees_reducer,
 }: AppState): TR_Employees['employees_RegionsList'] => employees_reducer.get('employees_RegionsList');
 
 export function* getlistEmployees(): SagaIterator<void> {
   try {
-    const opt: OptionsType = {
-      fetcher: APIGetlistEmployees,
-      isFetching: fetchingEmployeesList,
-      fill: employeeslist,
-      setErrorAction: setErrorEmployees,
-    };
-
-    yield call<TmakeRequestWithSpinner>(makeRequestWithSpinner, opt);
+    yield call<TmakeRequestWithSpinner<typeof APIGetlistEmployees>>(
+      makeRequestWithSpinner,
+      {
+        fetcher: APIGetlistEmployees,
+        fill: employeeslist,
+      },
+    );
   } catch (e) {
     console.error({ e });
   }
 }
 
-function* getCatalogs(): SagaIterator<void> {
+export function* getCatalogs(): SagaIterator<void> {
   try {
     type TCatalogs = {
       roleList: SagaReturnType<typeof APIGetRoleList>;
@@ -91,15 +82,14 @@ export function* getEmployeeData({
       yield call(getCatalogs);
     }
 
-    const opt: OptionsType = {
-      fetcher: APIGetEmployeesDataById,
-      parameters: { value: payload },
-      isFetching: fetchEmployeeData,
-      fill: employeeData,
-      setErrorAction: employeesDataEr,
-    };
-
-    yield call<TmakeRequestWithSpinner>(makeRequestWithSpinner, opt);
+    yield call<TmakeRequestWithSpinner<typeof APIGetEmployeesDataById>>(
+      makeRequestWithSpinner,
+      {
+        fetcher: APIGetEmployeesDataById,
+        fill: employeeData,
+        parameters: { value: payload },
+      },
+    );
   } catch (e) {
     console.error({ e });
   }

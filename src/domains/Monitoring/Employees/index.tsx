@@ -9,20 +9,18 @@ import { useEmployeess } from './hooks';
 export const Employees: FC = () => {
   const {
     classes,
-    employeesIsLoading,
-    employeesEr,
     changeEmployee,
     employee,
     employeesList,
-    data,
-    dataIsLoading,
     role,
     changeRole,
     roleList,
     region,
     changeRegion,
     regionsList,
+    employessData,
   } = useEmployeess();
+
   return (
     <>
       <FormControl className={classes.formControl}>
@@ -30,11 +28,15 @@ export const Employees: FC = () => {
         <Select
           labelId="employees-select-label"
           id="employees-select"
-          disabled={employeesIsLoading || employeesEr.error}
+          disabled={
+            employeesList.get('isLoading')
+            || employeesList.get('error').isError
+            || employeesList.get('LTU') === 0
+          }
           onChange={changeEmployee}
           value={employee}
         >
-          {employeesList.map((item) => (
+          {(employeesList.get('data') || []).map((item) => (
             <MenuItem key={item.id} value={item.id.toString(10)}>
               {item.fullName}
             </MenuItem>
@@ -42,7 +44,7 @@ export const Employees: FC = () => {
         </Select>
       </FormControl>
 
-      {data !== null && !dataIsLoading && (
+      {employessData.get('data') !== null && !employessData.get('isLoading') && (
         <Grid container>
           <FormControl className={classes.formControl}>
             <InputLabel id="employees-role-select-label">Roles</InputLabel>

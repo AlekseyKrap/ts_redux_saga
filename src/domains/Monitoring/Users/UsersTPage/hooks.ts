@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { AppState } from '../../../init/rootReducer';
-import { TR_Monitoring } from './reduser';
-import { getUsersPage } from './actions';
+import { AppState } from '../../../../init/rootReducer';
+import { TR_Monitoring } from '../reduser';
+import { getUsersPage } from '../actions';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {

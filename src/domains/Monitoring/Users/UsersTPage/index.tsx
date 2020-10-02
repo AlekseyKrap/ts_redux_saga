@@ -8,7 +8,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
-import { useUsersTPage } from '../hooks';
+import { useUsersTPage } from './hooks';
 
 interface Column {
   id: 'id' | 'usrId' | 'login' | 'date' | 'page';
@@ -61,7 +61,7 @@ export const UsersTPage: FC = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {usersPage.map((row) => (
+            {(usersPage.get('data') || []).map((row) => (
               <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
                 {columns.map((column) => {
                   const value = row[column.id];

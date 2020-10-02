@@ -1,5 +1,7 @@
 import { SagaIterator } from 'redux-saga';
-import { put, call } from 'redux-saga/effects';
+import {
+ put, call, apply, SagaReturnType, 
+} from 'redux-saga/effects';
 import {
   APIGetAllUsersPage,
   APIGetlistUsers,
@@ -9,29 +11,18 @@ import {
 import { TMonitClearAction } from '../reduser';
 import { TGetUsersPageAsync } from '../types';
 import { makeRequestWithSpinner } from '../../../../workers';
-import {
-  OptionsType,
-  TmakeRequestWithSpinner,
-} from '../../../../workers/makeRequestWithSpinner';
-import {
-  fetchUsersList,
-  filLlistUsers,
-  setErrorListUsers,
-  setErrorUsersPage,
-  setUsersPage,
-  usersPageIsLoading,
-} from '../actions';
+import { TmakeRequestWithSpinner } from '../../../../workers/makeRequestWithSpinner';
+import { filLlistUsers, setUsersPage } from '../actions';
 
 export function* getlistUsers(): SagaIterator<void> {
   try {
-    const opt: OptionsType = {
-      fetcher: APIGetlistUsers,
-      isFetching: fetchUsersList,
-      fill: filLlistUsers,
-      setErrorAction: setErrorListUsers,
-    };
-
-    yield call<TmakeRequestWithSpinner>(makeRequestWithSpinner, opt);
+    yield call<TmakeRequestWithSpinner<typeof APIGetlistUsers>>(
+      makeRequestWithSpinner,
+      {
+        fetcher: APIGetlistUsers,
+        fill: filLlistUsers,
+      },
+    );
   } catch (e) {
     console.error({ e });
   }
@@ -46,25 +37,22 @@ export function* workerGetUsersPage({
     });
 
     if (payload === undefined) {
-      const opt: OptionsType = {
-        fetcher: APIGetAllUsersPage,
-        isFetching: usersPageIsLoading,
-        fill: setUsersPage,
-        setErrorAction: setErrorUsersPage,
-      };
-      yield call<TmakeRequestWithSpinner>(makeRequestWithSpinner, opt);
+      yield call<TmakeRequestWithSpinner<typeof APIGetAllUsersPage>>(
+        makeRequestWithSpinner,
+        { fetcher: APIGetAllUsersPage, fill: setUsersPage },
+      );
       return;
     }
 
     if (typeof payload === 'string') {
-      const opt: OptionsType = {
-        fetcher: APIGetUsersPageById,
-        parameters: { field: 'usrId', value: payload },
-        isFetching: usersPageIsLoading,
-        fill: setUsersPage,
-        setErrorAction: setErrorUsersPage,
-      };
-      yield call<TmakeRequestWithSpinner>(makeRequestWithSpinner, opt);
+      yield call<TmakeRequestWithSpinner<typeof APIGetUsersPageById>>(
+        makeRequestWithSpinner,
+        {
+          fetcher: APIGetUsersPageById,
+          fill: setUsersPage,
+          parameters: { field: 'usrId', value: payload },
+        },
+      );
       return;
     }
   } catch (e) {

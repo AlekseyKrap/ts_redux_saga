@@ -7,13 +7,8 @@ import { useUserChange } from './hooks';
 
 export const UserChange: FC = () => {
   const {
-    classes,
-    user,
-    handleChange,
-    usersIsLoading,
-    listUsers_Er,
-    listUsers,
-  } = useUserChange();
+ classes, user, handleChange, listUsers, 
+} = useUserChange();
   return (
     <FormControl className={classes.formControl}>
       <InputLabel id="demo-simple-select-label">User</InputLabel>
@@ -22,9 +17,9 @@ export const UserChange: FC = () => {
         id="demo-simple-select"
         value={user}
         onChange={handleChange}
-        disabled={usersIsLoading || listUsers_Er.error}
+        disabled={listUsers.get('isLoading') || listUsers.get('error').isError}
       >
-        {listUsers.map((item) => (
+        {(listUsers.get('data') || []).map((item) => (
           <MenuItem key={item.id} value={item.id.toString(10)}>
             {item.login}
           </MenuItem>

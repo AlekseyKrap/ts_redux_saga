@@ -4,12 +4,18 @@ export type TParameters = {
   value: string;
   field?: string;
 };
+/**
+ * Проверяет является ли тип расширяемым от типа TParameters
+ */
+export type IsTParameters<T> = T extends TParameters ? T : void;
 
-function aPIFetchData<R, P extends TParameters>(
+function genFetchData<R, P extends TParameters>(
   url: string
 ): (p: P) => Promise<R>;
-function aPIFetchData<R>(url: string): () => Promise<R>;
-function aPIFetchData<R, P extends TParameters>(url: string): unknown {
+function genFetchData<R>(url: string): () => Promise<R>;
+function genFetchData<R, P extends TParameters>(
+  url: string,
+): (p?: P) => Promise<R> {
   return async function (p?: P): Promise<R> {
     try {
       let parameters = '';
@@ -30,4 +36,4 @@ function aPIFetchData<R, P extends TParameters>(url: string): unknown {
     }
   };
 }
-export default aPIFetchData;
+export default genFetchData;

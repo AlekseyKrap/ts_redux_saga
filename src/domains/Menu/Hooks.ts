@@ -4,7 +4,7 @@ import { AppState } from '../../init/rootReducer';
 import { TRInitMenu } from './reduser';
 import { setOpenMenuAction } from './actions';
 
-type TUseMenu = {
+export type TUseMenu = {
   open: boolean;
   handleDrawerOpen: () => void;
   handleDrawerClose: () => void;

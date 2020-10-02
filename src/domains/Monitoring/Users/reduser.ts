@@ -1,6 +1,9 @@
 import { Record } from 'immutable';
-import { ErrorHttpAction } from '../../../workers/makeRequestWithSpinner';
-import { TAPIUsersPage } from '../../../api';
+import {
+  genReceivedData,
+  ReceivedData,
+} from '../../../workers/makeRequestWithSpinner';
+import { TAPIlistEmployees, TAPIUsersPage } from '../../../api';
 import { TActionsR } from '../../../types';
 
 export type RUserItem = {
@@ -9,26 +12,13 @@ export type RUserItem = {
 };
 
 export type TR_Monitoring = {
-  monit_listUsers: Array<RUserItem>;
-  monit_usersIsLoading: boolean;
-  monit_listUsers_Er: ErrorHttpAction;
-  monit_UsersPage: TAPIUsersPage;
-  monit_UsersPageIsLoading: boolean;
-  monit_UsersPage_Er: ErrorHttpAction;
+  monit_listUsers: Record<ReceivedData<Array<RUserItem>>>;
+  monit_UsersPage: Record<ReceivedData<TAPIUsersPage>>;
 };
 export const rInitRMonitoring: TR_Monitoring = {
-  monit_listUsers: [],
-  monit_usersIsLoading: true,
-  monit_listUsers_Er: {
-    error: false,
-    message: '',
-  },
-  monit_UsersPage: [],
-  monit_UsersPageIsLoading: true,
-  monit_UsersPage_Er: {
-    error: false,
-    message: '',
-  },
+  monit_listUsers: genReceivedData<Array<RUserItem>>([]),
+
+  monit_UsersPage: genReceivedData<TAPIUsersPage>([]),
 };
 
 const State: Record.Factory<TR_Monitoring> = Record(rInitRMonitoring);

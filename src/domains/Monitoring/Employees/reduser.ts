@@ -4,38 +4,28 @@ import {
   TAPIlistEmployees,
   TAPIRegionsList,
   TAPIRoleList,
+  TAPIUsersPage,
 } from '../../../api';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 
-import { ErrorHttpAction } from '../../../workers/makeRequestWithSpinner';
+import {
+  genReceivedData,
+  ReceivedData,
+} from '../../../workers/makeRequestWithSpinner';
 import { TActionsR } from '../../../types';
 
 export type TR_Employees = {
-  employees: TAPIlistEmployees;
-  employees_IsLoading: boolean;
-  employees_Er: ErrorHttpAction;
+  employees: Record<ReceivedData<TAPIlistEmployees>>;
   employees_RoleList: TAPIRoleList;
   employees_RegionsList: TAPIRegionsList;
-  employess_Data: TAPIEmployeeData | null;
-  employess_Data_IsLoading: boolean;
-  employess_Data_Er: ErrorHttpAction;
+  employess_Data: Record<ReceivedData<TAPIEmployeeData>>;
 };
 export const rInitREmployees: TR_Employees = {
-  employees: [],
-  employees_IsLoading: false,
-  employees_Er: {
-    error: false,
-    message: '',
-  },
+  employees: genReceivedData<TAPIlistEmployees>([]),
   employees_RoleList: [],
   employees_RegionsList: [],
-  employess_Data: null,
-  employess_Data_IsLoading: false,
-  employess_Data_Er: {
-    error: false,
-    message: '',
-  },
+  employess_Data: genReceivedData<TAPIEmployeeData>(null),
 };
 
 const State: Record.Factory<TR_Employees> = Record(rInitREmployees);

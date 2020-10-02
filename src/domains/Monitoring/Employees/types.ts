@@ -22,6 +22,5 @@ export type TAFetchEmployeeData = TItemR<
   'employess_Data_IsLoading'
 >;
 
-// отсекаем null
 export type TAEmployeeData = TItemRNonNullable<TR_Employees, 'employess_Data'>;
 export type TAEmployeesDataEr = TItemR<TR_Employees, 'employess_Data_Er'>;

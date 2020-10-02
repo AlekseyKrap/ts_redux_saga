@@ -1,4 +1,4 @@
-import aPIFetchData from './aPIFetchData';
+import genFetchData from './aPIFetchData';
 
 export type TAPIlistUsersResp = Array<{
   id: number;
@@ -39,19 +39,19 @@ export type TPEmployeeDataById = {
   value: string;
 };
 
-export const APIGetlistUsers = aPIFetchData<TAPIlistUsersResp>('/users.logins');
-export const APIGetAllUsersPage = aPIFetchData<TAPIUsersPage>('/users.page');
-export const APIGetUsersPageById = aPIFetchData<TAPIUsersPage, TPUsersPageById>(
+export const APIGetlistUsers = genFetchData<TAPIlistUsersResp>('/users.logins');
+export const APIGetAllUsersPage = genFetchData<TAPIUsersPage>('/users.page');
+export const APIGetUsersPageById = genFetchData<TAPIUsersPage, TPUsersPageById>(
   '/users.page',
 );
-export const APIGetlistEmployees = aPIFetchData<TAPIlistEmployees>(
+export const APIGetlistEmployees = genFetchData<TAPIlistEmployees>(
   '/employees.list',
 );
-export const APIGetRoleList = aPIFetchData<TAPIRoleList>('/employees.roleList');
-export const APIGetRegionsList = aPIFetchData<TAPIRegionsList>(
+export const APIGetRoleList = genFetchData<TAPIRoleList>('/employees.roleList');
+export const APIGetRegionsList = genFetchData<TAPIRegionsList>(
   '/employees.regionsList',
 );
-export const APIGetEmployeesDataById = aPIFetchData<
+export const APIGetEmployeesDataById = genFetchData<
   TAPIEmployeeData,
   TPEmployeeDataById
 >('/employees.data');

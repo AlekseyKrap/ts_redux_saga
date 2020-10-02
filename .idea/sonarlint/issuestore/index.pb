@@ -19,8 +19,6 @@ U
 json-server.json,9\a\9a3bea92191ed32aab9874ff19ad14612445fc95
 7
 db.json,8\8\882a43610b9835dd51ca4ad37a0967fa0205e328
-U
-%src/domains/Monitoring/Users/hooks.ts,4\2\42b3c7908f40f690413ae6a3ec565793669c9f75
 W
 'src/domains/Monitoring/Users/reduser.ts,5\1\517fdcce36c2daeebc0b1349b9ebadc8158ec219
 `
@@ -51,3 +49,16 @@ V
 src/App.tsx,8\3\835da56f32df714aaed6285a5b7fc3a7807851e4
 a
 1src/domains/Monitoring/Users/UsersTPage/index.tsx,b\9\b96f3dc01774d173c5b58bcf3dbc1a1308e46ac4
+:
+
+.gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
+U
+%src/domains/Menu/__tests__/actions.ts,3\9\3923f584c22233b5baebcd80cf8e02ede1a24b0f
+K
+src/domains/Menu/actions.ts,d\b\dbed329cd668d72c9f0dd4366022be4398df1ee3
+K
+src/domains/Menu/reduser.ts,d\0\d0172c4dccf651c7bec344b2ae8780f422a774d5
+<
+package.json,7\0\7030d0b2f71b999ff89a343de08c414af32fc93a
+W
+'src/domains/Monitoring/Users/actions.ts,f\b\fbe0deba9cba8af8fdb3563afad90f9fc0a6b3f7

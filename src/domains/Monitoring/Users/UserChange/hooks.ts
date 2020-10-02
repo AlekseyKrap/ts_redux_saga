@@ -19,8 +19,6 @@ type TUseUserChange = {
   classes: Record<'formControl' | 'selectEmpty', string>;
   user: string;
   handleChange: (event: React.ChangeEvent<{ value: unknown }>) => void;
-  usersIsLoading: TR_Monitoring['monit_usersIsLoading'];
-  listUsers_Er: TR_Monitoring['monit_listUsers_Er'];
   listUsers: TR_Monitoring['monit_listUsers'];
 };
 export function useUserChange(): TUseUserChange {
@@ -30,14 +28,6 @@ export function useUserChange(): TUseUserChange {
   const listUsers = useSelector<AppState, TR_Monitoring['monit_listUsers']>(
     ({ monitoring_reducer }) => monitoring_reducer.get('monit_listUsers'),
   );
-  const usersIsLoading = useSelector<
-    AppState,
-    TR_Monitoring['monit_usersIsLoading']
-  >(({ monitoring_reducer }) => monitoring_reducer.get('monit_usersIsLoading'));
-  const listUsers_Er = useSelector<
-    AppState,
-    TR_Monitoring['monit_listUsers_Er']
-  >(({ monitoring_reducer }) => monitoring_reducer.get('monit_listUsers_Er'));
 
   useEffect(() => {
     dispatch(getlistUsers());
@@ -63,8 +53,6 @@ export function useUserChange(): TUseUserChange {
     classes,
     user,
     handleChange,
-    usersIsLoading,
-    listUsers_Er,
     listUsers,
   };
 }

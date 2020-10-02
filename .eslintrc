@@ -29,6 +29,7 @@
     "camelcase": "off",
     "quotes": "off",
     "react/jsx-props-no-spreading": 0,
+    "react/prop-types": "off",
     "import/prefer-default-export": 0,
     "import/extensions": [1, "ignorePackages", {
       "ts": "never",
