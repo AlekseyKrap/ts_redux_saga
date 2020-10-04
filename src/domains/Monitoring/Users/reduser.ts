@@ -1,8 +1,5 @@
 import { Record } from 'immutable';
-import {
-  genReceivedData,
-  ReceivedData,
-} from '../../../workers/makeRequestWithSpinner';
+import { genReceivedData, ReceivedData } from '../../../workers/makeReqWithRD';
 import { TAPIlistEmployees, TAPIUsersPage } from '../../../api';
 import { TActionsR } from '../../../types';
 

@@ -9,10 +9,7 @@ import {
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 
-import {
-  genReceivedData,
-  ReceivedData,
-} from '../../../workers/makeRequestWithSpinner';
+import { genReceivedData, ReceivedData } from '../../../workers/makeReqWithRD';
 import { TActionsR } from '../../../types';
 
 export type TR_Employees = {

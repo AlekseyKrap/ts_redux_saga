@@ -1,1 +1,1 @@
-export { makeRequestWithSpinner } from './makeRequestWithSpinner';
+export { makeReqWithRD } from './makeReqWithRD';

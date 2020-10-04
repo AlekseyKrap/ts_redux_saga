@@ -7,9 +7,9 @@ import {
   select,
 } from '@redux-saga/core/effects';
 import {
-  makeRequestWithSpinner,
-  TmakeRequestWithSpinner,
-} from '../../../../workers/makeRequestWithSpinner';
+  makeReqWithRD,
+  TMakeReqWithRD,
+} from '../../../../workers/makeReqWithRD';
 import { employeeData, employeeslist } from '../actions';
 import {
   APIGetEmployeesDataById,
@@ -30,13 +30,10 @@ export const getRegionsList = ({
 
 export function* getlistEmployees(): SagaIterator<void> {
   try {
-    yield call<TmakeRequestWithSpinner<typeof APIGetlistEmployees>>(
-      makeRequestWithSpinner,
-      {
-        fetcher: APIGetlistEmployees,
-        fill: employeeslist,
-      },
-    );
+    yield call<TMakeReqWithRD<typeof APIGetlistEmployees>>(makeReqWithRD, {
+      fetcher: APIGetlistEmployees,
+      fill: employeeslist,
+    });
   } catch (e) {
     console.error({ e });
   }
@@ -82,14 +79,11 @@ export function* getEmployeeData({
       yield call(getCatalogs);
     }
 
-    yield call<TmakeRequestWithSpinner<typeof APIGetEmployeesDataById>>(
-      makeRequestWithSpinner,
-      {
-        fetcher: APIGetEmployeesDataById,
-        fill: employeeData,
-        parameters: { value: payload },
-      },
-    );
+    yield call<TMakeReqWithRD<typeof APIGetEmployeesDataById>>(makeReqWithRD, {
+      fetcher: APIGetEmployeesDataById,
+      fill: employeeData,
+      parameters: { value: payload },
+    });
   } catch (e) {
     console.error({ e });
   }

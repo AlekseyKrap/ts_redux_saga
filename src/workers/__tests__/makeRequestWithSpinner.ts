@@ -6,7 +6,7 @@ import {
   APIGetRegionsList,
   APIGetRoleList,
 } from '../../api';
-import { makeRequestWithSpinner, OptionsType } from '../makeRequestWithSpinner';
+import { makeReqWithRD, OptionsType } from '../makeReqWithRD';
 import {
   employeeData,
   employeesDataEr,
@@ -23,7 +23,7 @@ describe('worker makeRequestWithSpinner:', () => {
   };
   const result = { id: 1, role: 2, region: 1 };
   test('makeRequestWithSpinner', async () => {
-    await expectSaga(makeRequestWithSpinner, opt)
+    await expectSaga(makeReqWithRD, opt)
       .put(opt.isFetching(true))
       .put(opt.setErrorAction(false, ''))
       .provide([[call(opt.fetcher, opt.parameters), result]])
@@ -34,7 +34,7 @@ describe('worker makeRequestWithSpinner:', () => {
   test('makeRequestWithSpinner request error', async () => {
     const error = new Error('error');
 
-    await expectSaga(makeRequestWithSpinner, opt)
+    await expectSaga(makeReqWithRD, opt)
       .put(opt.isFetching(true))
       .put(opt.setErrorAction(false, ''))
       .provide([[call(opt.fetcher, opt.parameters), throwError(error)]])

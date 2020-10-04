@@ -10,19 +10,19 @@ import {
 
 import { TMonitClearAction } from '../reduser';
 import { TGetUsersPageAsync } from '../types';
-import { makeRequestWithSpinner } from '../../../../workers';
-import { TmakeRequestWithSpinner } from '../../../../workers/makeRequestWithSpinner';
+
+import {
+  makeReqWithRD,
+  TMakeReqWithRD,
+} from '../../../../workers/makeReqWithRD';
 import { filLlistUsers, setUsersPage } from '../actions';
 
 export function* getlistUsers(): SagaIterator<void> {
   try {
-    yield call<TmakeRequestWithSpinner<typeof APIGetlistUsers>>(
-      makeRequestWithSpinner,
-      {
-        fetcher: APIGetlistUsers,
-        fill: filLlistUsers,
-      },
-    );
+    yield call<TMakeReqWithRD<typeof APIGetlistUsers>>(makeReqWithRD, {
+      fetcher: APIGetlistUsers,
+      fill: filLlistUsers,
+    });
   } catch (e) {
     console.error({ e });
   }
@@ -37,22 +37,19 @@ export function* workerGetUsersPage({
     });
 
     if (payload === undefined) {
-      yield call<TmakeRequestWithSpinner<typeof APIGetAllUsersPage>>(
-        makeRequestWithSpinner,
-        { fetcher: APIGetAllUsersPage, fill: setUsersPage },
-      );
+      yield call<TMakeReqWithRD<typeof APIGetAllUsersPage>>(makeReqWithRD, {
+        fetcher: APIGetAllUsersPage,
+        fill: setUsersPage,
+      });
       return;
     }
 
     if (typeof payload === 'string') {
-      yield call<TmakeRequestWithSpinner<typeof APIGetUsersPageById>>(
-        makeRequestWithSpinner,
-        {
-          fetcher: APIGetUsersPageById,
-          fill: setUsersPage,
-          parameters: { field: 'usrId', value: payload },
-        },
-      );
+      yield call<TMakeReqWithRD<typeof APIGetUsersPageById>>(makeReqWithRD, {
+        fetcher: APIGetUsersPageById,
+        fill: setUsersPage,
+        parameters: { field: 'usrId', value: payload },
+      });
       return;
     }
   } catch (e) {
