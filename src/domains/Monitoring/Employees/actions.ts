@@ -1,24 +1,20 @@
 import {
   TAEmployeeData,
-  TAEmployees_Er,
-  TAEmployeesDataEr,
   TAEmployeeslist,
-  TAFetchEmployeeData,
-  TAFetchEmployeesList,
   TGetEmployeeDataByIdAsync,
   TGetlistEmployeesAsync,
 } from './types';
-import { TEmployeesClearActionALL } from './reduser';
+import { TAEmployeesClearALL } from './reduser';
 
 export function getlistEmployees(): TGetlistEmployeesAsync {
   return {
-    type: 'EMPLOYEES_GET_LIST',
+    type: 'employees/getList',
   };
 }
 
-export function employeesClearALL(): TEmployeesClearActionALL {
+export function employeesClearALL(): TAEmployeesClearALL {
   return {
-    type: 'EMPLOYEES_CLEAR_ALL',
+    type: 'employees/clearAll',
   };
 }
 
@@ -30,7 +26,7 @@ export const employeeslist = (
 });
 
 export const employeeData = (v: TAEmployeeData['payload']): TAEmployeeData => ({
-  type: 'employess_Data',
+  type: 'employess/Data',
   payload: v,
 });
 
@@ -38,7 +34,7 @@ export function getEmployeeData(
   employeeId: TGetEmployeeDataByIdAsync['payload'],
 ): TGetEmployeeDataByIdAsync {
   return {
-    type: 'EMPLOYEES_GET_DATA',
+    type: 'employees/getData',
     payload: employeeId,
   };
 }

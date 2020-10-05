@@ -18,15 +18,15 @@ import {
   APIGetRoleList,
 } from '../../../../api';
 import { TGetEmployeeDataByIdAsync } from '../types';
-import { TEmployeesMergeAction, TR_Employees } from '../reduser';
+import { TAEmployeesMerge, TREmployees } from '../reduser';
 import { AppState } from '../../../../init/rootReducer';
 
 export const getRoleList = ({
   employees_reducer,
-}: AppState): TR_Employees['employees_RoleList'] => employees_reducer.get('employees_RoleList');
+}: AppState): TREmployees['employees/RoleList'] => employees_reducer.get('employees/RoleList');
 export const getRegionsList = ({
   employees_reducer,
-}: AppState): TR_Employees['employees_RegionsList'] => employees_reducer.get('employees_RegionsList');
+}: AppState): TREmployees['employees/RegionsList'] => employees_reducer.get('employees/RegionsList');
 
 export function* getlistEmployees(): SagaIterator<void> {
   try {
@@ -50,15 +50,15 @@ export function* getCatalogs(): SagaIterator<void> {
       regionsList: call(APIGetRegionsList),
     });
 
-    const mergeAction: TEmployeesMergeAction = {
-      type: 'EMPLOYEES_MERGE',
+    const mergeAction: TAEmployeesMerge = {
+      type: 'employees/merge',
       payload: {
-        employees_RoleList: roleList,
-        employees_RegionsList: regionsList,
+        'employees/RoleList': roleList,
+        'employees/RegionsList': regionsList,
       },
     };
 
-    yield put<TEmployeesMergeAction>(mergeAction);
+    yield put<TAEmployeesMerge>(mergeAction);
   } catch (e) {
     console.error({ e });
   }

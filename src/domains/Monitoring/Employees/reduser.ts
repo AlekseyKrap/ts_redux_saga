@@ -4,59 +4,55 @@ import {
   TAPIlistEmployees,
   TAPIRegionsList,
   TAPIRoleList,
-  TAPIUsersPage,
 } from '../../../api';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-
 import { genReceivedData, ReceivedData } from '../../../workers/makeReqWithRD';
 import { TActionsR } from '../../../types';
 
-export type TR_Employees = {
+export type TREmployees = {
   employees: Record<ReceivedData<TAPIlistEmployees>>;
-  employees_RoleList: TAPIRoleList;
-  employees_RegionsList: TAPIRegionsList;
-  employess_Data: Record<ReceivedData<TAPIEmployeeData>>;
+  'employees/RoleList': TAPIRoleList;
+  'employees/RegionsList': TAPIRegionsList;
+  'employess/Data': Record<ReceivedData<TAPIEmployeeData>>;
 };
-export const rInitREmployees: TR_Employees = {
+export const rInitEmployees: TREmployees = {
   employees: genReceivedData<TAPIlistEmployees>([]),
-  employees_RoleList: [],
-  employees_RegionsList: [],
-  employess_Data: genReceivedData<TAPIEmployeeData>(null),
+  'employees/RoleList': [],
+  'employees/RegionsList': [],
+  'employess/Data': genReceivedData<TAPIEmployeeData>(null),
 };
 
-const State: Record.Factory<TR_Employees> = Record(rInitREmployees);
+const State: Record.Factory<TREmployees> = Record(rInitEmployees);
 
-export type TEmployeesClearAction = {
-  type: 'EMPLOYEES_CLEAR';
-  payload: keyof TR_Employees;
+export type TAEmployeesClear = {
+  type: 'employees/clear';
+  payload: keyof TREmployees;
 };
-export type TEmployeesClearActionALL = {
-  type: 'EMPLOYEES_CLEAR_ALL';
+export type TAEmployeesClearALL = {
+  type: 'employees/clearAll';
 };
 
-export type TEmployeesMergeAction = {
-  type: 'EMPLOYEES_MERGE';
-  payload: Partial<TR_Employees>;
+export type TAEmployeesMerge = {
+  type: 'employees/merge';
+  payload: Partial<TREmployees>;
 };
 
 export type TActionsR_Employees =
-  | TActionsR<TR_Employees>
-  | TEmployeesClearAction
-  | TEmployeesClearActionALL
-  | TEmployeesMergeAction;
+  | TActionsR<TREmployees>
+  | TAEmployeesClear
+  | TAEmployeesClearALL
+  | TAEmployeesMerge;
 
 export const employees_reducer = function (
-  state: Record<TR_Employees> = new State(),
+  state: Record<TREmployees> = State(),
   action: TActionsR_Employees,
-): Record<TR_Employees> {
-  if (action.type === 'EMPLOYEES_CLEAR') {
+): Record<TREmployees> {
+  if (action.type === 'employees/clear') {
     return state.delete(action.payload);
   }
-  if (action.type === 'EMPLOYEES_CLEAR_ALL') {
+  if (action.type === 'employees/clearAll') {
     return state.clear();
   }
-  if (action.type === 'EMPLOYEES_MERGE') {
+  if (action.type === 'employees/merge') {
     return state.merge(action.payload);
   }
 

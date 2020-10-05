@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import React, { useCallback, useEffect } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { AppState } from '../../../../init/rootReducer';
-import { TR_Monitoring } from '../reduser';
+import { TRMonitoring } from '../reduser';
 import { getlistUsers, getUsersPage } from '../actions';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -19,14 +19,14 @@ type TUseUserChange = {
   classes: Record<'formControl' | 'selectEmpty', string>;
   user: string;
   handleChange: (event: React.ChangeEvent<{ value: unknown }>) => void;
-  listUsers: TR_Monitoring['monit_listUsers'];
+  listUsers: TRMonitoring['monit/listUsers'];
 };
 export function useUserChange(): TUseUserChange {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const listUsers = useSelector<AppState, TR_Monitoring['monit_listUsers']>(
-    ({ monitoring_reducer }) => monitoring_reducer.get('monit_listUsers'),
+  const listUsers = useSelector<AppState, TRMonitoring['monit/listUsers']>(
+    ({ monitoring_reducer }) => monitoring_reducer.get('monit/listUsers'),
   );
 
   useEffect(() => {

@@ -8,7 +8,7 @@ import {
   APIGetUsersPageById,
 } from '../../../../api';
 
-import { TMonitClearAction } from '../reduser';
+import { TAMonitClear } from '../reduser';
 import { TGetUsersPageAsync } from '../types';
 
 import {
@@ -17,7 +17,7 @@ import {
 } from '../../../../workers/makeReqWithRD';
 import { filLlistUsers, setUsersPage } from '../actions';
 
-export function* getlistUsers(): SagaIterator<void> {
+export function* workerGetlistUsers(): SagaIterator<void> {
   try {
     yield call<TMakeReqWithRD<typeof APIGetlistUsers>>(makeReqWithRD, {
       fetcher: APIGetlistUsers,
@@ -31,9 +31,9 @@ export function* workerGetUsersPage({
   payload,
 }: TGetUsersPageAsync): SagaIterator<void> {
   try {
-    yield put<TMonitClearAction>({
-      type: 'MONIT_CLEAR',
-      payload: 'monit_UsersPage',
+    yield put<TAMonitClear>({
+      type: 'monit/clear',
+      payload: 'monit/UsersPage',
     });
 
     if (payload === undefined) {

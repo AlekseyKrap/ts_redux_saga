@@ -1,6 +1,6 @@
 import { Record } from 'immutable';
 import { genReceivedData, ReceivedData } from '../../../workers/makeReqWithRD';
-import { TAPIlistEmployees, TAPIUsersPage } from '../../../api';
+import { TAPIUsersPage } from '../../../api';
 import { TActionsR } from '../../../types';
 
 export type RUserItem = {
@@ -8,39 +8,38 @@ export type RUserItem = {
   login: string;
 };
 
-export type TR_Monitoring = {
-  monit_listUsers: Record<ReceivedData<Array<RUserItem>>>;
-  monit_UsersPage: Record<ReceivedData<TAPIUsersPage>>;
+export type TRMonitoring = {
+  'monit/listUsers': Record<ReceivedData<Array<RUserItem>>>;
+  'monit/UsersPage': Record<ReceivedData<TAPIUsersPage>>;
 };
-export const rInitRMonitoring: TR_Monitoring = {
-  monit_listUsers: genReceivedData<Array<RUserItem>>([]),
-
-  monit_UsersPage: genReceivedData<TAPIUsersPage>([]),
+export const rInitMonitoring: TRMonitoring = {
+  'monit/listUsers': genReceivedData<Array<RUserItem>>([]),
+  'monit/UsersPage': genReceivedData<TAPIUsersPage>([]),
 };
 
-const State: Record.Factory<TR_Monitoring> = Record(rInitRMonitoring);
+const State: Record.Factory<TRMonitoring> = Record(rInitMonitoring);
 
-export type TMonitClearAction = {
-  type: 'MONIT_CLEAR';
-  payload: keyof TR_Monitoring;
+export type TAMonitClear = {
+  type: 'monit/clear';
+  payload: keyof TRMonitoring;
 };
-export type TMonitClearActionALL = {
-  type: 'MONIT_CLEAR_ALL';
+export type TAMonitClearALL = {
+  type: 'monit/clearAll';
 };
 
 export type TActionsR_Monit =
-  | TActionsR<TR_Monitoring>
-  | TMonitClearAction
-  | TMonitClearActionALL;
+  | TActionsR<TRMonitoring>
+  | TAMonitClear
+  | TAMonitClearALL;
 
 export const monitoring_reducer = function (
-  state: Record<TR_Monitoring> = new State(),
+  state: Record<TRMonitoring> = State(),
   action: TActionsR_Monit,
-): Record<TR_Monitoring> {
-  if (action.type === 'MONIT_CLEAR') {
+): Record<TRMonitoring> {
+  if (action.type === 'monit/clear') {
     return state.delete(action.payload);
   }
-  if (action.type === 'MONIT_CLEAR_ALL') {
+  if (action.type === 'monit/clearAll') {
     return state.clear();
   }
 

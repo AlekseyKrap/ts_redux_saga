@@ -1,6 +1,5 @@
 // Core
 import { combineReducers } from 'redux';
-
 // Reducers
 import { menu_reducer } from '../domains/Menu/reduser';
 import { monitoring_reducer } from '../domains/Monitoring/Users/reduser';

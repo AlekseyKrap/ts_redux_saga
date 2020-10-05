@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { AppState } from '../../../../init/rootReducer';
-import { TR_Monitoring } from '../reduser';
+import { TRMonitoring } from '../reduser';
 import { getUsersPage } from '../actions';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -23,14 +23,14 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 type TUseUsersTPage = {
   classes: Record<'root' | 'container' | 'formControl' | 'selectEmpty', string>;
-  usersPage: TR_Monitoring['monit_UsersPage'];
+  usersPage: TRMonitoring['monit/UsersPage'];
 };
 export function useUsersTPage(): TUseUsersTPage {
   const dispatch = useDispatch();
   const classes = useStyles();
 
-  const usersPage = useSelector<AppState, TR_Monitoring['monit_UsersPage']>(
-    ({ monitoring_reducer }) => monitoring_reducer.get('monit_UsersPage'),
+  const usersPage = useSelector<AppState, TRMonitoring['monit/UsersPage']>(
+    ({ monitoring_reducer }) => monitoring_reducer.get('monit/UsersPage'),
   );
 
   useEffect(() => {

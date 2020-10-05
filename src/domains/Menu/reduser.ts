@@ -1,20 +1,20 @@
 import { Record } from 'immutable';
 import { TActionsR } from '../../types';
 
-export type TRInitMenu = {
-  menu_isOpen: boolean;
+export type TRMenu = {
+  'menu/isOpen': boolean;
 };
-export const rInitRMenu: TRInitMenu = {
-  menu_isOpen: false,
+export const rInitMenu: TRMenu = {
+  'menu/isOpen': false,
 };
 
-const State: Record.Factory<TRInitMenu> = Record(rInitRMenu);
+const State: Record.Factory<TRMenu> = Record(rInitMenu);
 
-export type TActionsMenuR = TActionsR<TRInitMenu>;
+export type TActionsR_Menu = TActionsR<TRMenu>;
 
 export const menu_reducer = function (
-  state: Record<TRInitMenu> = new State(),
-  action: TActionsMenuR,
-): Record<TRInitMenu> {
+  state: Record<TRMenu> = State(),
+  action: TActionsR_Menu,
+): Record<TRMenu> {
   return state.set(action.type, action.payload);
 };

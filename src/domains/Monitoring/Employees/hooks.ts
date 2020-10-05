@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import React, { useCallback, useEffect } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { AppState } from '../../../init/rootReducer';
-import { TR_Employees } from './reduser';
+import { TREmployees } from './reduser';
 import {
   employeesClearALL,
   getlistEmployees,
@@ -23,32 +23,32 @@ export type TUseEmployeess = {
   classes: Record<'formControl' | 'selectEmpty', string>;
   changeEmployee: (event: React.ChangeEvent<{ value: unknown }>) => void;
   employee: string;
-  employeesList: TR_Employees['employees'];
-  employessData: TR_Employees['employess_Data'];
+  employeesList: TREmployees['employees'];
+  employessData: TREmployees['employess/Data'];
   role: string;
   changeRole: (event: React.ChangeEvent<{ value: unknown }>) => void;
-  roleList: TR_Employees['employees_RoleList'];
+  roleList: TREmployees['employees/RoleList'];
   region: string;
   changeRegion: (event: React.ChangeEvent<{ value: unknown }>) => void;
-  regionsList: TR_Employees['employees_RegionsList'];
+  regionsList: TREmployees['employees/RegionsList'];
 };
 export function useEmployeess(): TUseEmployeess {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const employeesList = useSelector<AppState, TR_Employees['employees']>(
+  const employeesList = useSelector<AppState, TREmployees['employees']>(
     ({ employees_reducer }) => employees_reducer.get('employees'),
   );
 
-  const roleList = useSelector<AppState, TR_Employees['employees_RoleList']>(
-    ({ employees_reducer }) => employees_reducer.get('employees_RoleList'),
+  const roleList = useSelector<AppState, TREmployees['employees/RoleList']>(
+    ({ employees_reducer }) => employees_reducer.get('employees/RoleList'),
   );
 
   const regionsList = useSelector<
     AppState,
-    TR_Employees['employees_RegionsList']
-  >(({ employees_reducer }) => employees_reducer.get('employees_RegionsList'));
-  const employessData = useSelector<AppState, TR_Employees['employess_Data']>(
-    ({ employees_reducer }) => employees_reducer.get('employess_Data'),
+    TREmployees['employees/RegionsList']
+  >(({ employees_reducer }) => employees_reducer.get('employees/RegionsList'));
+  const employessData = useSelector<AppState, TREmployees['employess/Data']>(
+    ({ employees_reducer }) => employees_reducer.get('employess/Data'),
   );
 
   useEffect(() => {
