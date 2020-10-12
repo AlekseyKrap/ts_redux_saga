@@ -1,9 +1,7 @@
 import { SagaIterator } from '@redux-saga/core';
-import {
- put, call, all, SagaReturnType, 
-} from 'redux-saga/effects';
+import { put, call } from 'redux-saga/effects';
 import { Record } from 'immutable';
-import genFetchData, { IsTParameters, TParameters } from '../api/aPIFetchData';
+import { IsTParameters } from '../api/aPIFetchData';
 
 /**
  * Описывает экшен который сохраняет результат запроса
@@ -56,7 +54,7 @@ export type OptionsType<
 /**
  * Функция генерирует объект ReceivedData
  */
-
+export type TGenReceivedData<T> = (data: T | null) => Record<ReceivedData<T>>;
 export function genReceivedData<T>(data: T | null): Record<ReceivedData<T>> {
   const initData: ReceivedData<T> = {
     data,
@@ -81,9 +79,12 @@ export function* makeReqWithRD<
   T extends(v: Parameters<T>[0]) => ReturnType<T>
 >(options: OptionsType<T>): SagaIterator {
   const { fetcher, fill, parameters } = options;
-  let receivedData = genReceivedData<ThenArg<ReturnType<T>>>(null);
+  let receivedData = yield call<TGenReceivedData<ThenArg<ReturnType<T>>>>(
+    genReceivedData,
+    null,
+  );
   try {
-    fill(receivedData);
+    receivedData = receivedData.set('isLoading', true);
     yield put(fill(receivedData));
     const result: ThenArg<ReturnType<T>> = yield call(fetcher, parameters);
     receivedData = receivedData.set('data', result);

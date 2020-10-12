@@ -1,34 +1,28 @@
 import {
-  fetchUsersList,
   filLlistUsers,
   getlistUsers,
   getUsersPage,
-  setErrorListUsers,
-  setErrorUsersPage,
   setUsersPage,
-  usersPageIsLoading,
 } from '../actions';
+import { genReceivedData } from '../../../../workers/makeReqWithRD';
+import { RUserItem } from '../reduser';
+import { TAPIUsersPage } from '../../../../api';
 
 describe('Monitoring -> Users -> action:', () => {
   test('getlistUsers', () => {
     expect(getlistUsers()).toEqual({
-      type: 'MONIT_GET_LIST_USERS',
+      type: 'monit/getListUsers',
     });
   });
   test('getUsersPage', () => {
     expect(getUsersPage('1')).toEqual({
-      type: 'MONIT_GET_USERS_PAGE',
+      type: 'monit/getUsersPage',
       payload: '1',
     });
   });
-  test('fetchUsersList', () => {
-    expect(fetchUsersList(true)).toEqual({
-      type: 'monit_usersIsLoading',
-      payload: true,
-    });
-  });
+
   test('filLlistUsers', () => {
-    const listUsers = [
+    const listUsers = genReceivedData<Array<RUserItem>>([
       {
         id: 1,
         login: 'User#1',
@@ -41,29 +35,15 @@ describe('Monitoring -> Users -> action:', () => {
         id: 3,
         login: 'User#3',
       },
-    ];
+    ]);
     expect(filLlistUsers(listUsers)).toEqual({
-      type: 'monit_listUsers',
+      type: 'monit/listUsers',
       payload: listUsers,
     });
   });
-  test('setErrorListUsers', () => {
-    expect(setErrorListUsers(true, 'Error')).toEqual({
-      type: 'monit_listUsers_Er',
-      payload: {
-        error: true,
-        message: 'Error',
-      },
-    });
-  });
-  test('usersPageIsLoading', () => {
-    expect(usersPageIsLoading(true)).toEqual({
-      type: 'monit_UsersPageIsLoading',
-      payload: true,
-    });
-  });
+
   test('setUsersPage', () => {
-    const usersPage = [
+    const usersPage = genReceivedData<TAPIUsersPage>([
       {
         id: 1,
         usrId: 1,
@@ -85,19 +65,10 @@ describe('Monitoring -> Users -> action:', () => {
         date: 1591525172450,
         page: 'page1',
       },
-    ];
+    ]);
     expect(setUsersPage(usersPage)).toEqual({
-      type: 'monit_UsersPage',
+      type: 'monit/UsersPage',
       payload: usersPage,
-    });
-  });
-  test('setErrorUsersPage', () => {
-    expect(setErrorUsersPage(true, 'Error')).toEqual({
-      type: 'monit_UsersPage_Er',
-      payload: {
-        error: true,
-        message: 'Error',
-      },
     });
   });
 });

@@ -1,66 +1,47 @@
 import {
   employeeData,
   employeesClearALL,
-  employeesDataEr,
   employeeslist,
-  fetchEmployeeData,
-  fetchingEmployeesList,
+  getEmployeeData,
   getlistEmployees,
-  setErrorEmployees,
 } from '../actions';
+import { genReceivedData } from '../../../../workers/makeReqWithRD';
+import { TAPIEmployeeData, TAPIlistEmployees } from '../../../../api';
 
 describe('Monitoring -> Employees -> action:', () => {
   test('getlistEmployees', () => {
     expect(getlistEmployees()).toEqual({
-      type: 'EMPLOYEES_GET_LIST',
+      type: 'employees/getList',
     });
   });
   test('employeesClearALL', () => {
     expect(employeesClearALL()).toEqual({
-      type: 'EMPLOYEES_CLEAR_ALL',
+      type: 'employees/clearAll',
     });
   });
-  test('employees_IsLoading', () => {
-    expect(fetchingEmployeesList(true)).toEqual({
-      type: 'employees_IsLoading',
-      payload: true,
-    });
-  });
+
   test('employeeslist', () => {
-    expect(employeeslist([])).toEqual({
+    const employees = genReceivedData<TAPIlistEmployees>([]);
+    expect(employeeslist(employees)).toEqual({
       type: 'employees',
-      payload: [],
-    });
-  });
-  test('setErrorEmployees', () => {
-    expect(setErrorEmployees(true, 'Error')).toEqual({
-      type: 'employees_Er',
-      payload: {
-        error: true,
-        message: 'Error',
-      },
-    });
-  });
-  test('fetchEmployeeData', () => {
-    expect(fetchEmployeeData(true)).toEqual({
-      type: 'employess_Data_IsLoading',
-      payload: true,
+      payload: employees,
     });
   });
   test('employeeData', () => {
-    const data = { id: 1, role: 2, region: 1 };
+    const data = genReceivedData<TAPIEmployeeData>({
+      id: 1,
+      role: 2,
+      region: 1,
+    });
     expect(employeeData(data)).toEqual({
-      type: 'employess_Data',
+      type: 'employess/Data',
       payload: data,
     });
   });
-  test('employeesDataEr', () => {
-    expect(employeesDataEr(true, 'Error')).toEqual({
-      type: 'employess_Data_Er',
-      payload: {
-        error: true,
-        message: 'Error',
-      },
+  test('getEmployeeData', () => {
+    expect(getEmployeeData('1')).toEqual({
+      type: 'employees/getData',
+      payload: '1',
     });
   });
 });

@@ -2,11 +2,16 @@ import { Record } from 'immutable';
 import { TActionsR } from '../../types';
 
 export type TRMenu = {
-  'menu/isOpen': boolean;
+  'isOpen': boolean;
 };
 export const rInitMenu: TRMenu = {
-  'menu/isOpen': false,
+  isOpen: false,
 };
+
+function createState<T extends {[k:string]:unknown}>(name:string,init:T):Record.Factory<T> {
+
+  return Record(Object.entries(init))
+}
 
 const State: Record.Factory<TRMenu> = Record(rInitMenu);
 

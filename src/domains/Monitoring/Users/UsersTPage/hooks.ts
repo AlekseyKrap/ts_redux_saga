@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     },
   }));
 
-type TUseUsersTPage = {
+export type TUseUsersTPage = {
   classes: Record<'root' | 'container' | 'formControl' | 'selectEmpty', string>;
   usersPage: TRMonitoring['monit/UsersPage'];
 };

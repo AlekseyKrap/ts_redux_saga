@@ -11,25 +11,21 @@ export function getlistEmployees(): TGetlistEmployeesAsync {
     type: 'employees/getList',
   };
 }
-
 export function employeesClearALL(): TAEmployeesClearALL {
   return {
     type: 'employees/clearAll',
   };
 }
-
 export const employeeslist = (
   v: TAEmployeeslist['payload'],
 ): TAEmployeeslist => ({
   type: 'employees',
   payload: v,
 });
-
 export const employeeData = (v: TAEmployeeData['payload']): TAEmployeeData => ({
   type: 'employess/Data',
   payload: v,
 });
-
 export function getEmployeeData(
   employeeId: TGetEmployeeDataByIdAsync['payload'],
 ): TGetEmployeeDataByIdAsync {

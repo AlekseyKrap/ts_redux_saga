@@ -1,7 +1,5 @@
 import { SagaIterator } from 'redux-saga';
-import {
- put, call, apply, SagaReturnType, 
-} from 'redux-saga/effects';
+import { put, call } from 'redux-saga/effects';
 import {
   APIGetAllUsersPage,
   APIGetlistUsers,

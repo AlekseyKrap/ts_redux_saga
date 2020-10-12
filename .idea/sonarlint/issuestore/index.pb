@@ -74,8 +74,6 @@ T
 $src/domains/Menu/__tests__/hooks.tsx,c\8\c8de7e1cd072d90d67c0b78201072bcd2ad5f5e9
 d
 4src/domains/Monitoring/Employees/__tests__/hooks.tsx,1\6\1606444811df78210a50b3aec19831546bf6c6e8
-_
-/src/workers/__tests__/makeRequestWithSpinner.ts,8\8\88b99fe0acbde44f400d4f09ce84b0a2000148eb
 e
 5src/domains/Monitoring/Employees/__tests__/reduser.ts,6\1\61bbc268bbd4bd884652e3ca25a62ad6894350f3
 V

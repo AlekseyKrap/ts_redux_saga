@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     },
   }));
 
-type TUseUserChange = {
+export type TUseUserChange = {
   classes: Record<'formControl' | 'selectEmpty', string>;
   user: string;
   handleChange: (event: React.ChangeEvent<{ value: unknown }>) => void;

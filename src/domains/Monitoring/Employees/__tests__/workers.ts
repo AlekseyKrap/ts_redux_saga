@@ -13,31 +13,18 @@ import {
   APIGetRegionsList,
   APIGetRoleList,
 } from '../../../../api';
-import {
-  makeRequestWithSpinner,
-  OptionsType,
-} from '../../../../workers/makeRequestWithSpinner';
-import {
-  employeeData,
-  employeesDataEr,
-  employeeslist,
-  fetchEmployeeData,
-  fetchingEmployeesList,
-  setErrorEmployees,
-} from '../actions';
+import { makeReqWithRD, OptionsType } from '../../../../workers/makeReqWithRD';
+import { employeeData, employeeslist } from '../actions';
 import { TGetEmployeeDataByIdAsync } from '../types';
 
 describe('Monitoring -> Employees -> saga -> workers:', () => {
   test('getlistEmployees saga', () => {
     const opt = {
       fetcher: APIGetlistEmployees,
-      isFetching: fetchingEmployeesList,
       fill: employeeslist,
-      setErrorAction: setErrorEmployees,
     };
-
     const saga = testSaga(getlistEmployees);
-    saga.next().call(makeRequestWithSpinner, opt);
+    saga.next().call(makeReqWithRD, opt);
     saga.next().isDone();
   });
   test('getCatalogs saga', async () => {
@@ -53,10 +40,10 @@ describe('Monitoring -> Employees -> saga -> workers:', () => {
       { id: 4, description: 'northern' },
     ];
     const mergeAction = {
-      type: 'EMPLOYEES_MERGE',
+      type: 'employees/merge',
       payload: {
-        employees_RoleList: roleList,
-        employees_RegionsList: regionsList,
+        'employees/RoleList': roleList,
+        'employees/RegionsList': regionsList,
       },
     };
 
@@ -70,34 +57,30 @@ describe('Monitoring -> Employees -> saga -> workers:', () => {
   });
   test('getEmployeeData saga ,roleList & regionsList === []', async () => {
     const data: TGetEmployeeDataByIdAsync = {
-      type: 'EMPLOYEES_GET_DATA',
+      type: 'employees/getData',
       payload: '1',
     };
-    const opt: OptionsType = {
+    const opt: OptionsType<typeof APIGetEmployeesDataById> = {
       fetcher: APIGetEmployeesDataById,
       parameters: { value: data.payload },
-      isFetching: fetchEmployeeData,
       fill: employeeData,
-      setErrorAction: employeesDataEr,
     };
     const saga = testSaga(getEmployeeData, data);
     saga.next().select(getRoleList);
     saga.next([]).select(getRegionsList);
     saga.next([]).call(getCatalogs);
-    saga.next([]).call(makeRequestWithSpinner, opt);
+    saga.next([]).call(makeReqWithRD, opt);
     saga.next().isDone();
   });
   test('getEmployeeData saga ,roleList & regionsList === data', async () => {
     const data: TGetEmployeeDataByIdAsync = {
-      type: 'EMPLOYEES_GET_DATA',
+      type: 'employees/getData',
       payload: '1',
     };
-    const opt: OptionsType = {
+    const opt: OptionsType<typeof APIGetEmployeesDataById> = {
       fetcher: APIGetEmployeesDataById,
       parameters: { value: data.payload },
-      isFetching: fetchEmployeeData,
       fill: employeeData,
-      setErrorAction: employeesDataEr,
     };
     const roleList = [
       { id: 1, description: 'administrator' },
@@ -113,7 +96,7 @@ describe('Monitoring -> Employees -> saga -> workers:', () => {
     const saga = testSaga(getEmployeeData, data);
     saga.next().select(getRoleList);
     saga.next(roleList).select(getRegionsList);
-    saga.next(regionsList).call(makeRequestWithSpinner, opt);
+    saga.next(regionsList).call(makeReqWithRD, opt);
     saga.next().isDone();
   });
 });

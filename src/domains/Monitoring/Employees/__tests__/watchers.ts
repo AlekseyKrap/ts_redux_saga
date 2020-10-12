@@ -6,9 +6,9 @@ describe('Monitoring -> Employees -> saga -> watchers:', () => {
   test('should describe watcher', () => {
     testSaga(watchMonitoring)
       .next()
-      .takeEvery('EMPLOYEES_GET_LIST', getlistEmployees)
+      .takeEvery('employees/getList', getlistEmployees)
       .next()
-      .takeEvery('EMPLOYEES_GET_DATA', getEmployeeData)
+      .takeEvery('employees/getData', getEmployeeData)
       .finish()
       .isDone();
   });
