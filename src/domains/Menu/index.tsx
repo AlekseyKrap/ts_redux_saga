@@ -18,6 +18,7 @@ import {
   useTheme,
 } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
+import { CSSProperties } from '@material-ui/core/styles/withStyles';
 import { drawerWidth } from '../../const';
 import { useMenu } from './Hooks';
 
@@ -50,9 +51,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       alignItems: 'center',
       justifyContent: 'flex-end',
       padding: theme.spacing(0, 1),
-      // necessary for content to be below app bar
       ...theme.mixins.toolbar,
-    },
+    } as CSSProperties,
   }));
 
 export const Menu: FC = () => {

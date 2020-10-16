@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
+import { CSSProperties } from '@material-ui/core/styles/withStyles';
 import { store } from './init/store';
 import { Header } from './domains/Header';
 import { Menu } from './domains/Menu';
@@ -15,6 +16,7 @@ import ErrorBoundary from './components/ErrorBoundary';
 const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
       display: 'flex',
+      // toolbar: theme.mixins.toolbar as CSSProperties,
     },
     toolbar: {
       display: 'flex',
@@ -22,8 +24,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       justifyContent: 'flex-end',
       padding: theme.spacing(0, 1),
       // necessary for content to be below app bar
-      ...theme.mixins.toolbar,
-    },
+      ...(theme.mixins.toolbar as CSSProperties),
+    } as CSSProperties,
+
     content: {
       flexGrow: 1,
       padding: theme.spacing(3),

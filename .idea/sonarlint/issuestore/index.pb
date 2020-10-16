@@ -84,3 +84,15 @@ e
 5src/domains/Monitoring/Employees/__tests__/workers.ts,c\1\c125da2d4154f396ef56e33c0d910d5c57acb27e
 L
 src/workers/makeReqWithRD.ts,a\c\acc6dd8400980d712a765eb77c8b26dfbe2ce3e0
+D
+src/init/rootSaga.ts,7\f\7f39f3d209ca0a5c1e24caab7faa0a0ca2a2ff72
+I
+src/domains/Menu/types.ts,4\d\4de0069f46224c147bf4d778f9183a11c3be1610
+G
+src/init/rootReducer.ts,9\c\9c84706925febb87956d9ea5d07111b7cc5b9654
+F
+src/init/middleware.ts,3\6\36b6d8800c10ab469a303bcecb79872a9c8c9266
+o
+?coverage/lcov-report/domains/Monitoring/Employees/hooks.ts.html,5\f\5f4823b4fa4ed01172623746c7af7b8e2c7c9d70
+J
+src/domains/Menu/index.tsx,5\1\519f41953e460f43f0dafe922b026aabc0829d59

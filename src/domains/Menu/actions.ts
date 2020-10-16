@@ -4,7 +4,7 @@ export function setOpenMenuAction(
   isOpen: TSetOpenMenuAction['payload'],
 ): TSetOpenMenuAction {
   return {
-    type: 'menu/isOpen',
+    type: 'isOpen',
     payload: isOpen,
   };
 }

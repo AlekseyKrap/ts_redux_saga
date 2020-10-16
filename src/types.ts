@@ -1,7 +1,20 @@
-export type TransformedType<T> = {
-  [K in keyof T]: { type: K; payload: T[K] };
+export type TInit<T extends Record<string, unknown>> = Record<
+  string,
+  T[keyof T & string]
+>;
+
+export type TActions<T extends TInit<T>> = {
+  [K in keyof T & string]: (p: T[K]) => { type: string; payload: T[K] };
 };
-export type TActionsR<T> = TransformedType<T> extends {
+
+export type TransformedType<T extends TInit<T>> = {
+  [K in keyof T]: {
+    type: K extends string ? K : never;
+    payload: K extends keyof T & string ? T[K] : never;
+  };
+};
+
+export type TActionsR<T extends TInit<T>> = TransformedType<T> extends {
   [K in keyof TransformedType<T>]: infer P;
 }
   ? P

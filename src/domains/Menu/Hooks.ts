@@ -1,7 +1,8 @@
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Record } from 'immutable';
 import { AppState } from '../../init/rootReducer';
-import { TRMenu } from './reduser';
+import { TRMenu, actions } from './reduser';
 import { setOpenMenuAction } from './actions';
 
 export type TUseMenu = {
@@ -12,16 +13,14 @@ export type TUseMenu = {
 export function useMenu(): TUseMenu {
   const dispatch = useDispatch();
 
-  const open = useSelector<AppState, TRMenu['menu/isOpen']>(
-    ({ menu_reducer }) => menu_reducer.get('menu/isOpen'),
-  );
+  const open = useSelector<AppState, TRMenu['isOpen']>(({ menu_reducer }) => menu_reducer.get('isOpen'));
 
   const handleDrawerOpen = useCallback(() => {
-    dispatch(setOpenMenuAction(true));
+    dispatch(actions.isOpen(true));
   }, [dispatch]);
 
   const handleDrawerClose = useCallback(() => {
-    dispatch(setOpenMenuAction(false));
+    dispatch(actions.isOpen(false));
   }, [dispatch]);
 
   return { open, handleDrawerOpen, handleDrawerClose };
