@@ -6,33 +6,33 @@ import {
   SagaReturnType,
   select,
 } from '@redux-saga/core/effects';
-import {
-  makeReqWithRD,
-  TMakeReqWithRD,
-} from '../../../../workers/makeReqWithRD';
-import { employeeData, employeeslist } from '../actions';
+import { makeReqWithRD, TMakeReqWithRD } from '../../../../core/makeReqWithRD';
+import { employeeslist } from '../actions';
 import {
   APIGetEmployeesDataById,
   APIGetlistEmployees,
   APIGetRegionsList,
   APIGetRoleList,
+  TAPIEmployeeData,
 } from '../../../../api';
 import { TGetEmployeeDataByIdAsync } from '../types';
-import { TAEmployeesMerge, TREmployees } from '../reduser';
+import { TAEmployeesMerge, TREmployees, actions } from '../reduser';
 import { AppState } from '../../../../init/rootReducer';
+import { FetchedData } from '../../../../core/fetchedData';
 
 export const getRoleList = ({
   employees_reducer,
-}: AppState): TREmployees['employees/RoleList'] => employees_reducer.get('employees/RoleList');
+}: AppState): TREmployees['RoleList'] => employees_reducer.get('RoleList');
 export const getRegionsList = ({
   employees_reducer,
-}: AppState): TREmployees['employees/RegionsList'] => employees_reducer.get('employees/RegionsList');
+}: AppState): TREmployees['RegionsList'] =>
+  employees_reducer.get('RegionsList');
 
 export function* getlistEmployees(): SagaIterator<void> {
   try {
     yield call<TMakeReqWithRD<typeof APIGetlistEmployees>>(makeReqWithRD, {
       fetcher: APIGetlistEmployees,
-      fill: employeeslist,
+      fill: (v) => actions.set('employees', v),
     });
   } catch (e) {
     console.error({ e });
@@ -41,24 +41,16 @@ export function* getlistEmployees(): SagaIterator<void> {
 
 export function* getCatalogs(): SagaIterator<void> {
   try {
-    type TCatalogs = {
-      roleList: SagaReturnType<typeof APIGetRoleList>;
-      regionsList: SagaReturnType<typeof APIGetRegionsList>;
-    };
-    const { roleList, regionsList }: TCatalogs = yield all({
-      roleList: call(APIGetRoleList),
-      regionsList: call(APIGetRegionsList),
-    });
-
-    const mergeAction: TAEmployeesMerge = {
-      type: 'employees/merge',
-      payload: {
-        'employees/RoleList': roleList,
-        'employees/RegionsList': regionsList,
-      },
-    };
-
-    yield put<TAEmployeesMerge>(mergeAction);
+    yield all([
+      call<TMakeReqWithRD<typeof APIGetRoleList>>(makeReqWithRD, {
+        fetcher: APIGetRoleList,
+        fill: (v) => actions.set('RoleList', v),
+      }),
+      call<TMakeReqWithRD<typeof APIGetRegionsList>>(makeReqWithRD, {
+        fetcher: APIGetRegionsList,
+        fill: (v) => actions.set('RegionsList', v),
+      }),
+    ]);
   } catch (e) {
     console.error({ e });
   }
@@ -69,19 +61,22 @@ export function* getEmployeeData({
 }: TGetEmployeeDataByIdAsync): SagaIterator<void> {
   try {
     const roleList: SagaReturnType<typeof getRoleList> = yield select(
-      getRoleList,
+      getRoleList
     );
     const regionsList: SagaReturnType<typeof getRegionsList> = yield select(
-      getRegionsList,
+      getRegionsList
     );
 
-    if (roleList.length === 0 || regionsList.length === 0) {
+    if (
+      roleList.get('data')?.length === 0 ||
+      regionsList.get('data')?.length === 0
+    ) {
       yield call(getCatalogs);
     }
 
     yield call<TMakeReqWithRD<typeof APIGetEmployeesDataById>>(makeReqWithRD, {
       fetcher: APIGetEmployeesDataById,
-      fill: employeeData,
+      fill: (v) => actions.set('Data', v),
       parameters: { value: payload },
     });
   } catch (e) {

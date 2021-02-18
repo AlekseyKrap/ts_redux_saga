@@ -42,14 +42,14 @@ export type TPEmployeeDataById = {
 export const APIGetlistUsers = genFetchData<TAPIlistUsersResp>('/users.logins');
 export const APIGetAllUsersPage = genFetchData<TAPIUsersPage>('/users.page');
 export const APIGetUsersPageById = genFetchData<TAPIUsersPage, TPUsersPageById>(
-  '/users.page',
+  '/users.page'
 );
 export const APIGetlistEmployees = genFetchData<TAPIlistEmployees>(
-  '/employees.list',
+  '/employees.list'
 );
 export const APIGetRoleList = genFetchData<TAPIRoleList>('/employees.roleList');
 export const APIGetRegionsList = genFetchData<TAPIRegionsList>(
-  '/employees.regionsList',
+  '/employees.regionsList'
 );
 export const APIGetEmployeesDataById = genFetchData<
   TAPIEmployeeData,

@@ -5,7 +5,8 @@ import { AppState } from '../../../../init/rootReducer';
 import { TRMonitoring } from '../reduser';
 import { getlistUsers, getUsersPage } from '../actions';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
     formControl: {
       margin: theme.spacing(1),
       minWidth: 120,
@@ -13,7 +14,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     selectEmpty: {
       marginTop: theme.spacing(2),
     },
-  }));
+  })
+);
 
 export type TUseUserChange = {
   classes: Record<'formControl' | 'selectEmpty', string>;
@@ -26,7 +28,7 @@ export function useUserChange(): TUseUserChange {
   const dispatch = useDispatch();
 
   const listUsers = useSelector<AppState, TRMonitoring['monit/listUsers']>(
-    ({ monitoring_reducer }) => monitoring_reducer.get('monit/listUsers'),
+    ({ monitoring_reducer }) => monitoring_reducer.get('monit/listUsers')
   );
 
   useEffect(() => {
@@ -46,7 +48,7 @@ export function useUserChange(): TUseUserChange {
         dispatch(getUsersPage(val));
       }
     },
-    [setUser, dispatch],
+    [setUser, dispatch]
   );
 
   return {

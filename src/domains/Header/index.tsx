@@ -9,7 +9,8 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { drawerWidth } from '../../const';
 import { useMenu } from '../Menu/Hooks';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
     appBar: {
       zIndex: theme.zIndex.drawer + 1,
       transition: theme.transitions.create(['width', 'margin'], {
@@ -31,7 +32,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     hide: {
       display: 'none',
     },
-  }));
+  })
+);
 
 export const Header: FC = () => {
   const classes = useStyles();
@@ -42,8 +44,7 @@ export const Header: FC = () => {
       position="fixed"
       className={clsx(classes.appBar, {
         [classes.appBarShift]: open,
-      })}
-    >
+      })}>
       <Toolbar>
         <IconButton
           color="inherit"
@@ -52,8 +53,7 @@ export const Header: FC = () => {
           edge="start"
           className={clsx(classes.menuButton, {
             [classes.hide]: open,
-          })}
-        >
+          })}>
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" noWrap>

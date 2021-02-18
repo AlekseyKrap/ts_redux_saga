@@ -42,11 +42,11 @@ describe('worker makeReqWithRD:', () => {
   test('makeReqWithRD', () => {
     const saga = testSaga<TMakeReqWithRD<typeof APIGetEmployeesDataById>>(
       makeReqWithRD,
-      opt,
+      opt
     );
     let receivedData = genReceivedData<typeof result>(null).set(
       'isLoading',
-      true,
+      true
     );
     saga.next(receivedData).call(genReceivedData, null);
     saga.next(receivedData).put(opt.fill(receivedData));
@@ -60,11 +60,11 @@ describe('worker makeReqWithRD:', () => {
   test('makeReqWithRD request error', () => {
     const saga = testSaga<TMakeReqWithRD<typeof APIGetEmployeesDataById>>(
       makeReqWithRD,
-      opt,
+      opt
     );
     let receivedData = genReceivedData<typeof result>(null).set(
       'isLoading',
-      true,
+      true
     );
     saga.next(receivedData).call(genReceivedData, null);
     saga.next(receivedData).put(opt.fill(receivedData));
@@ -73,10 +73,7 @@ describe('worker makeReqWithRD:', () => {
       isError: true,
       message: error.message,
     });
-    saga
-      .next()
-      .throw(error)
-      .put(opt.fill(receivedData));
+    saga.next().throw(error).put(opt.fill(receivedData));
     receivedData = receivedData.set('isLoading', false).set('LTU', Date.now());
     saga.next().put(opt.fill(receivedData));
     saga.next().isDone();

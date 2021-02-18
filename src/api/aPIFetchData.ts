@@ -14,7 +14,7 @@ function genFetchData<R, P extends TParameters>(
 ): (p: P) => Promise<R>;
 function genFetchData<R>(url: string): () => Promise<R>;
 function genFetchData<R, P extends TParameters>(
-  url: string,
+  url: string
 ): (p?: P) => Promise<R> {
   return async function (p?: P): Promise<R> {
     try {

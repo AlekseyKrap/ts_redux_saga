@@ -30,7 +30,7 @@ describe('Monitoring -> Employees -> reduser:', () => {
 
   test('should describe initial state by default', () => {
     expect(JSON.stringify(employees_reducer(undefined, defAction))).toBe(
-      JSON.stringify(defState),
+      JSON.stringify(defState)
     );
   });
 

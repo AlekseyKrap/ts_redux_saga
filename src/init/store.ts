@@ -7,7 +7,7 @@ import { middleware, sagaMiddleware } from './middleware';
 
 export const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(...middleware)),
+  composeWithDevTools(applyMiddleware(...middleware))
 );
 
 sagaMiddleware.run(rootSaga);

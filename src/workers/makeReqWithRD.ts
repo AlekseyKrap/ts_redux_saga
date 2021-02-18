@@ -76,12 +76,12 @@ export type TMakeReqWithRD<T extends (v: Parameters<T>[0]) => ReturnType<T>> = (
 ) => SagaIterator;
 
 export function* makeReqWithRD<
-  T extends(v: Parameters<T>[0]) => ReturnType<T>
+  T extends (v: Parameters<T>[0]) => ReturnType<T>
 >(options: OptionsType<T>): SagaIterator {
   const { fetcher, fill, parameters } = options;
   let receivedData = yield call<TGenReceivedData<ThenArg<ReturnType<T>>>>(
     genReceivedData,
-    null,
+    null
   );
   try {
     receivedData = receivedData.set('isLoading', true);

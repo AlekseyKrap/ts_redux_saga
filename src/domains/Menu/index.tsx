@@ -22,7 +22,8 @@ import { CSSProperties } from '@material-ui/core/styles/withStyles';
 import { drawerWidth } from '../../const';
 import { useMenu } from './Hooks';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
     drawer: {
       width: drawerWidth,
       flexShrink: 0,
@@ -53,7 +54,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       padding: theme.spacing(0, 1),
       ...theme.mixins.toolbar,
     } as CSSProperties,
-  }));
+  })
+);
 
 export const Menu: FC = () => {
   const classes = useStyles();
@@ -72,8 +74,7 @@ export const Menu: FC = () => {
           [classes.drawerOpen]: open,
           [classes.drawerClose]: !open,
         }),
-      }}
-    >
+      }}>
       <div className={classes.toolbar}>
         <IconButton onClick={handleDrawerClose}>
           {theme.direction === 'rtl' ? (

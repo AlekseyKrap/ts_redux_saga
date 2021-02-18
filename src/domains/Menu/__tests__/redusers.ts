@@ -12,7 +12,7 @@ describe('menu reduser:', () => {
   test('should describe initial state by default', () => {
     const defAction: any = {};
     expect(menu_reducer(undefined, defAction).hashCode()).toBe(
-      defState.hashCode(),
+      defState.hashCode()
     );
   });
   test('should update state value by key menu_isOpen', () => {

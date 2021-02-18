@@ -11,7 +11,7 @@ export function getlistUsers(): TGetlistUsersAsync {
   };
 }
 export function getUsersPage(
-  userId?: TGetUsersPageAsync['payload'],
+  userId?: TGetUsersPageAsync['payload']
 ): TGetUsersPageAsync {
   return {
     type: 'monit/getUsersPage',
@@ -20,7 +20,7 @@ export function getUsersPage(
 }
 
 export const filLlistUsers = (
-  v: TActionlistUsers['payload'],
+  v: TActionlistUsers['payload']
 ): TActionlistUsers => ({
   type: 'monit/listUsers',
   payload: v,

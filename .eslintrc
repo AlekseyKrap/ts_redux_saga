@@ -4,7 +4,14 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:import/errors",
     "plugin:import/warnings",
-    "plugin:import/typescript"
+    "plugin:import/typescript",
+    "prettier",
+    "prettier/@typescript-eslint",
+    "prettier/react",
+    "prettier/standard"
+  ],
+  "plugins": [
+    "eslint-plugin-no-inline-styles"
   ],
   "parser":  "@typescript-eslint/parser",
   "parserOptions": {
@@ -20,7 +27,9 @@
         ".tsx"
       ]
     }],
+    "jsx-a11y/media-has-caption": "off",
     "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/ban-ts-comment": "off",
     "no-trailing-spaces": "off",
     "semi": "off",
     "indent": "off",
@@ -30,11 +39,22 @@
     "quotes": "off",
     "react/jsx-props-no-spreading": 0,
     "react/prop-types": "off",
+    "import/no-unresolved": "off",
     "import/prefer-default-export": 0,
+    "no-inline-styles/no-inline-styles": 2,
     "import/extensions": [1, "ignorePackages", {
       "ts": "never",
       "tsx": "never"
     }],
+    "no-param-reassign": ["error", {
+      "props": true,
+      "ignorePropertyModificationsFor": [
+        "state"
+      ]
+    }],
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/no-static-element-interactions": "off",
+    "react/require-default-props": "off",
     "no-console":"off",
     "func-names": "off"
   },

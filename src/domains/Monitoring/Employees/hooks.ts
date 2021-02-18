@@ -9,7 +9,8 @@ import {
   getEmployeeData,
 } from './actions';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
     formControl: {
       margin: theme.spacing(1),
       minWidth: 120,
@@ -17,38 +18,38 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     selectEmpty: {
       marginTop: theme.spacing(2),
     },
-  }));
+  })
+);
 
 export type TUseEmployeess = {
   classes: Record<'formControl' | 'selectEmpty', string>;
   changeEmployee: (event: React.ChangeEvent<{ value: unknown }>) => void;
   employee: string;
   employeesList: TREmployees['employees'];
-  employessData: TREmployees['employess/Data'];
+  employessData: TREmployees['Data'];
   role: string;
   changeRole: (event: React.ChangeEvent<{ value: unknown }>) => void;
-  roleList: TREmployees['employees/RoleList'];
+  roleList: TREmployees['RoleList'];
   region: string;
   changeRegion: (event: React.ChangeEvent<{ value: unknown }>) => void;
-  regionsList: TREmployees['employees/RegionsList'];
+  regionsList: TREmployees['RegionsList'];
 };
 export function useEmployeess(): TUseEmployeess {
   const classes = useStyles();
   const dispatch = useDispatch();
   const employeesList = useSelector<AppState, TREmployees['employees']>(
-    ({ employees_reducer }) => employees_reducer.get('employees'),
+    ({ employees_reducer }) => employees_reducer.get('employees')
   );
 
-  const roleList = useSelector<AppState, TREmployees['employees/RoleList']>(
-    ({ employees_reducer }) => employees_reducer.get('employees/RoleList'),
+  const roleList = useSelector<AppState, TREmployees['RoleList']>(
+    ({ employees_reducer }) => employees_reducer.get('RoleList')
   );
 
-  const regionsList = useSelector<
-    AppState,
-    TREmployees['employees/RegionsList']
-  >(({ employees_reducer }) => employees_reducer.get('employees/RegionsList'));
-  const employessData = useSelector<AppState, TREmployees['employess/Data']>(
-    ({ employees_reducer }) => employees_reducer.get('employess/Data'),
+  const regionsList = useSelector<AppState, TREmployees['RegionsList']>(
+    ({ employees_reducer }) => employees_reducer.get('RegionsList')
+  );
+  const employessData = useSelector<AppState, TREmployees['Data']>(
+    ({ employees_reducer }) => employees_reducer.get('Data')
   );
 
   useEffect(() => {
@@ -78,7 +79,7 @@ export function useEmployeess(): TUseEmployeess {
         dispatch(getEmployeeData(val));
       }
     },
-    [setEmployee, dispatch],
+    [setEmployee, dispatch]
   );
   const changeRegion = useCallback(
     (event: React.ChangeEvent<{ value: unknown }>) => {
@@ -88,7 +89,7 @@ export function useEmployeess(): TUseEmployeess {
       }
       setRegion(val);
     },
-    [setRegion],
+    [setRegion]
   );
   const changeRole = useCallback(
     (event: React.ChangeEvent<{ value: unknown }>) => {
@@ -98,7 +99,7 @@ export function useEmployeess(): TUseEmployeess {
       }
       setRole(val);
     },
-    [setRole],
+    [setRole]
   );
 
   return {

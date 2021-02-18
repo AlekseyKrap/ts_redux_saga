@@ -16,16 +16,15 @@
     "@types/react-router-dom": "^5.1.5",
     "clsx": "^1.1.1",
     "immutable": "^4.0.0-rc.12",
-    "json-server": "^0.16.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1",
+    "react-scripts": "^4.0.2",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-saga": "^1.1.3",
-    "typescript": "3.9.7"
+    "typescript": "^4.1.3"
   },
   "devDependencies": {
     "@testing-library/react-hooks": "^3.4.1",
@@ -34,11 +33,23 @@
     "@typescript-eslint/eslint-plugin": "^3.2.0",
     "@typescript-eslint/parser": "^3.2.0",
     "eslint-config-airbnb": "^18.0.1",
-    "eslint-plugin-import": "^2.20.1",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.20.0",
     "react-test-renderer": "^16.13.1",
-    "redux-saga-test-plan": "^4.0.0-rc.3"
+    "redux-saga-test-plan": "^4.0.0-rc.3",
+    "json-server": "^0.16.2",
+    "prettier": "^2.1.2",
+
+
+    "@typescript-eslint/eslint-plugin-tslint": "^2.7.0",
+
+    "@typescript-eslint/types": "^4.6.1",
+
+    "eslint": "^7.13.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-no-inline-styles": "^1.0.5",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4.2.0"
   },
   "scripts": {
     "start": "react-scripts start",

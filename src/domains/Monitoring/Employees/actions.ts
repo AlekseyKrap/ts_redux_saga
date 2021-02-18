@@ -17,17 +17,14 @@ export function employeesClearALL(): TAEmployeesClearALL {
   };
 }
 export const employeeslist = (
-  v: TAEmployeeslist['payload'],
+  v: TAEmployeeslist['payload']
 ): TAEmployeeslist => ({
   type: 'employees',
   payload: v,
 });
-export const employeeData = (v: TAEmployeeData['payload']): TAEmployeeData => ({
-  type: 'employess/Data',
-  payload: v,
-});
+
 export function getEmployeeData(
-  employeeId: TGetEmployeeDataByIdAsync['payload'],
+  employeeId: TGetEmployeeDataByIdAsync['payload']
 ): TGetEmployeeDataByIdAsync {
   return {
     type: 'employees/getData',

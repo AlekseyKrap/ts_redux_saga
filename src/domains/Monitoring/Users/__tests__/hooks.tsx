@@ -21,7 +21,7 @@ import { genReceivedData } from '../../../../workers/makeReqWithRD';
 import { TUseUsersTPage, useUsersTPage } from '../UsersTPage/hooks';
 
 function isReactChangeEvent(
-  v: unknown,
+  v: unknown
 ): v is React.ChangeEvent<{ value: unknown }> {
   if (typeof v !== 'object' || v === null) return false;
   if (!('target' in v)) return false;
@@ -42,7 +42,7 @@ describe('Monitoring -> Users -> UserChange -> hooks:', () => {
   beforeEach(() => {
     store = createStore(
       rootReducer,
-      applyMiddleware(...middleware, testActions),
+      applyMiddleware(...middleware, testActions)
     );
     component = renderHook(() => useUserChange(), {
       wrapper: ({ children }) => <Provider store={store}>{children}</Provider>,
@@ -97,7 +97,7 @@ describe('Monitoring -> Users -> UsersTPage -> hooks:', () => {
   beforeEach(() => {
     store = createStore(
       rootReducer,
-      applyMiddleware(...middleware, testActions),
+      applyMiddleware(...middleware, testActions)
     );
     component = renderHook(() => useUsersTPage(), {
       wrapper: ({ children }) => <Provider store={store}>{children}</Provider>,

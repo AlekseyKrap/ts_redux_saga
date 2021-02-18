@@ -1,4 +1,4 @@
-import initReduser from '../../init/initReduser';
+import initReducer from '../../init/initReducer';
 
 export type TRMenu = {
   isOpen: boolean;
@@ -7,5 +7,4 @@ export const rInitMenu: TRMenu = {
   isOpen: false,
 };
 
-export const { reduser, actions } = initReduser(rInitMenu, 'menu');
-export const menu_reducer = reduser;
+export const { reducer, actions } = initReducer(rInitMenu, 'menu');

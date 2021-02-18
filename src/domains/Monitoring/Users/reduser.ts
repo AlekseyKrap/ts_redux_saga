@@ -34,7 +34,7 @@ export type TActionsR_Monit =
 
 export const monitoring_reducer = function (
   state: Record<TRMonitoring> = State(),
-  action: TActionsR_Monit,
+  action: TActionsR_Monit
 ): Record<TRMonitoring> {
   if (action.type === 'monit/clear') {
     return state.delete(action.payload);

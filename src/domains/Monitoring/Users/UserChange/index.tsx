@@ -6,9 +6,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { useUserChange } from './hooks';
 
 export const UserChange: FC = () => {
-  const {
- classes, user, handleChange, listUsers, 
-} = useUserChange();
+  const { classes, user, handleChange, listUsers } = useUserChange();
   return (
     <FormControl className={classes.formControl}>
       <InputLabel id="demo-simple-select-label">User</InputLabel>
@@ -17,8 +15,7 @@ export const UserChange: FC = () => {
         id="demo-simple-select"
         value={user}
         onChange={handleChange}
-        disabled={listUsers.get('isLoading') || listUsers.get('error').isError}
-      >
+        disabled={listUsers.get('isLoading') || listUsers.get('error').isError}>
         {(listUsers.get('data') || []).map((item) => (
           <MenuItem key={item.id} value={item.id.toString(10)}>
             {item.login}

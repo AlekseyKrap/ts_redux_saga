@@ -5,7 +5,8 @@ import { AppState } from '../../../../init/rootReducer';
 import { TRMonitoring } from '../reduser';
 import { getUsersPage } from '../actions';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
     root: {
       width: '100%',
     },
@@ -19,7 +20,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     selectEmpty: {
       marginTop: theme.spacing(2),
     },
-  }));
+  })
+);
 
 export type TUseUsersTPage = {
   classes: Record<'root' | 'container' | 'formControl' | 'selectEmpty', string>;
@@ -30,7 +32,7 @@ export function useUsersTPage(): TUseUsersTPage {
   const classes = useStyles();
 
   const usersPage = useSelector<AppState, TRMonitoring['monit/UsersPage']>(
-    ({ monitoring_reducer }) => monitoring_reducer.get('monit/UsersPage'),
+    ({ monitoring_reducer }) => monitoring_reducer.get('monit/UsersPage')
   );
 
   useEffect(() => {

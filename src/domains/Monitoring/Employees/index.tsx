@@ -21,6 +21,7 @@ export const Employees: FC = () => {
     employessData,
   } = useEmployeess();
 
+  console.log("employeesList.get('data')", employeesList.get('data'));
   return (
     <>
       <FormControl className={classes.formControl}>
@@ -29,13 +30,12 @@ export const Employees: FC = () => {
           labelId="employees-select-label"
           id="employees-select"
           disabled={
-            employeesList.get('isLoading')
-            || employeesList.get('error').isError
-            || employeesList.get('LTU') === 0
+            employeesList.get('isLoading') ||
+            employeesList.get('error').isError ||
+            employeesList.get('LTU') === 0
           }
           onChange={changeEmployee}
-          value={employee}
-        >
+          value={employee}>
           {(employeesList.get('data') || []).map((item) => (
             <MenuItem key={item.id} value={item.id.toString(10)}>
               {item.fullName}
@@ -52,9 +52,8 @@ export const Employees: FC = () => {
               labelId="employees-role-select-label"
               id="employees-roles"
               value={role}
-              onChange={changeRole}
-            >
-              {roleList.map((item) => (
+              onChange={changeRole}>
+              {roleList.get('data')?.map((item) => (
                 <MenuItem key={item.id} value={item.id.toString(10)}>
                   {item.description}
                 </MenuItem>
@@ -67,9 +66,8 @@ export const Employees: FC = () => {
               labelId="employees-regions-select-label"
               id="employees-regions"
               value={region}
-              onChange={changeRegion}
-            >
-              {regionsList.map((item) => (
+              onChange={changeRegion}>
+              {regionsList.get('data')?.map((item) => (
                 <MenuItem key={item.id} value={item.id.toString(10)}>
                   {item.description}
                 </MenuItem>

@@ -13,7 +13,8 @@ import { Users } from './domains/Monitoring/Users';
 import { Employees } from './domains/Monitoring/Employees';
 import ErrorBoundary from './components/ErrorBoundary';
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
     root: {
       display: 'flex',
       // toolbar: theme.mixins.toolbar as CSSProperties,
@@ -31,7 +32,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       flexGrow: 1,
       padding: theme.spacing(3),
     },
-  }));
+  })
+);
 
 function App(): JSX.Element {
   const classes = useStyles();

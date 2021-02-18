@@ -20,7 +20,7 @@ import { genReceivedData } from '../../../../workers/makeReqWithRD';
 import { TAPIEmployeeData } from '../../../../api';
 
 function isReactChangeEvent(
-  v: unknown,
+  v: unknown
 ): v is React.ChangeEvent<{ value: unknown }> {
   if (typeof v !== 'object' || v === null) return false;
   if (!('target' in v)) return false;
@@ -41,7 +41,7 @@ describe('Monitoring -> Employees -> hooks:', () => {
   beforeEach(() => {
     store = createStore(
       rootReducer,
-      applyMiddleware(...middleware, testActions),
+      applyMiddleware(...middleware, testActions)
     );
     component = renderHook(() => useEmployeess(), {
       wrapper: ({ children }) => <Provider store={store}>{children}</Provider>,

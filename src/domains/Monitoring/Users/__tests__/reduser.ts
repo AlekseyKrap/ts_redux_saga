@@ -21,7 +21,7 @@ describe('Monitoring -> Users -> reduser:', () => {
   const defAction = {} as TActionsR_Monit;
   test('should describe initial state by default', () => {
     expect(JSON.stringify(monitoring_reducer(undefined, defAction))).toBe(
-      JSON.stringify(defState),
+      JSON.stringify(defState)
     );
   });
   test('should update state value by key monit/listUsers', () => {
