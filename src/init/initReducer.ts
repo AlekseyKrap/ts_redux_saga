@@ -1,25 +1,17 @@
 import { Record as ImRecord } from 'immutable';
-import { R, TActions, TActionsR, TInit, TValue } from '../types';
+import type { TActionsR, TInit } from '../types';
 
+/**
+ * Генерирует редьюсер
+ * @param {T} init - Начальные значения редьюсера.
+ * @param {string} domain - Переменная ограничивающая область видимости редьюсера.
+ * @returns {(state: ImRecord<T> | undefined, action: TActionsR<T>) => ImRecord<T>} Функция редьюсера.
+ */
 function genReducer<T extends TInit<T>>(
   init: T,
   domain: string,
 ): (state: ImRecord<T> | undefined, action: TActionsR<T>) => ImRecord<T> {
   const State: ImRecord.Factory<T> = ImRecord(init);
-
-  // type TClear = {
-  //   type: 'clear';
-  //   payload: keyof TInit<T>;
-  // };
-  // type TClearALL = {
-  //   type: 'clearAll';
-  //   payload?:never
-  // };
-  //
-  // type TMerge = {
-  //   type: 'merge';
-  //   payload: Partial<TInit<T>>;
-  // };
 
   type TActions = TActionsR<T>;
 
@@ -29,7 +21,6 @@ function genReducer<T extends TInit<T>>(
   ): ImRecord<T> {
     const { type, payload } = action;
 
-    console.log({ action });
     if (typeof type !== 'string') return state;
     if (!type.includes(domain)) return state;
 
@@ -42,29 +33,30 @@ function genReducer<T extends TInit<T>>(
       return state.delete(generalType);
     }
 
-    // if (action.type === 'merge') {
-    //   return state.merge(action.payload);
-    // }
-
     return state.set(generalType, payload);
-    // if (state.has(action.type)) {
-    //   return state.set(action.type, action.payload);
-    // }
-    // return state;
   };
   return reducer;
 }
 type TDomenKey<K, D extends string> = K extends string ? `${D}${K}` : K;
 
 interface ActionsN<T extends TInit<T>, D extends string> {
+  /** очистить все  */
   clearAll: () => { type: string };
+  /** очистить по ключу  */
   clear: <K extends keyof T>(key: K) => { type: string; payload: K };
+  /** установить значение  */
   set: <K extends keyof T>(
     key: K,
     value: T[K],
   ) => { type: TDomenKey<K, D>; payload: T[K] };
 }
 
+/**
+ * Генерирует екшен креэйторы
+ * @param {T} init - Начальные значения редьюсера.
+ * @param {string} domain - Переменная ограничивающая область видимости редьюсера.
+ * @returns ActionsN<T, typeof domain> Одбект с екшен креэйторами.
+ */
 function genActions<T extends TInit<T>>(
   initR: T,
   domain: string,
@@ -84,6 +76,12 @@ function genActions<T extends TInit<T>>(
   };
 }
 
+/**
+ * Генерирует екшен креэйторы и редьюсер
+ * @param {T} init - Начальные значения редьюсера.
+ * @param {string} domain - Переменная ограничивающая область видимости редьюсера.
+ * @returns {reducer,actions} Обьект с редьюсерам и экшен креэйторами
+ */
 export default function initReducer<T extends TInit<T>>(
   init: T,
   name: string,

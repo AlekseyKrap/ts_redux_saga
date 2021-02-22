@@ -70,24 +70,3 @@ export function* makeReqWithRD<
     yield put(fill(receivedData));
   }
 }
-
-/** Функция позволяет прокинуть значение loading, error, LTS в время обработки fill */
-interface PFetchedDataProps<T, S> {
-  /** Объект FetchData для извлечения атрибутов */
-  fillFetchedData: FetchedData<T>;
-  /** Новые данные какие необходимо сохранить */
-  newData: S;
-}
-export function updateFillFetchedData<T, S>({
-  fillFetchedData,
-  newData,
-}: PFetchedDataProps<T, S>): FetchedData<S> {
-  const loading = fillFetchedData.get('isLoading');
-  const error = fillFetchedData.get('error');
-  const LTU = fillFetchedData.get('LTU');
-  let fetchedData = genFetchedData<S>(null).set('data', newData);
-  fetchedData = fetchedData.set('isLoading', loading);
-  fetchedData = fetchedData.set('error', error);
-  fetchedData = fetchedData.set('LTU', LTU);
-  return fetchedData;
-}

@@ -1,9 +1,4 @@
-import {
-  TActionlistUsers,
-  TGetlistUsersAsync,
-  TGetUsersPageAsync,
-  TMonit_UsersPage,
-} from './types';
+import { TGetlistUsersAsync, TGetUsersPageAsync } from './types';
 
 export function getlistUsers(): TGetlistUsersAsync {
   return {
