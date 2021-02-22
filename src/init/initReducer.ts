@@ -3,7 +3,7 @@ import { R, TActions, TActionsR, TInit, TValue } from '../types';
 
 function genReducer<T extends TInit<T>>(
   init: T,
-  domain: string
+  domain: string,
 ): (state: ImRecord<T> | undefined, action: TActionsR<T>) => ImRecord<T> {
   const State: ImRecord.Factory<T> = ImRecord(init);
 
@@ -25,7 +25,7 @@ function genReducer<T extends TInit<T>>(
 
   const reducer = function (
     state: ImRecord<T> = State(),
-    action: TActions
+    action: TActions,
   ): ImRecord<T> {
     const { type, payload } = action;
 
@@ -35,13 +35,13 @@ function genReducer<T extends TInit<T>>(
 
     const generalType = type.replace(domain, '') as typeof type;
 
-    // if (action.type === 'clearAll') {
-    //   return state.clear();
-    // }
-    // if (action.type === 'clear') {
-    //   return state.delete(action.payload);
-    // }
-    //
+    if (generalType === 'clearAll') {
+      return state.clear();
+    }
+    if (action.type === 'clear') {
+      return state.delete(generalType);
+    }
+
     // if (action.type === 'merge') {
     //   return state.merge(action.payload);
     // }
@@ -50,24 +50,33 @@ function genReducer<T extends TInit<T>>(
     // if (state.has(action.type)) {
     //   return state.set(action.type, action.payload);
     // }
-    return state;
+    // return state;
   };
   return reducer;
 }
 type TDomenKey<K, D extends string> = K extends string ? `${D}${K}` : K;
 
 interface ActionsN<T extends TInit<T>, D extends string> {
+  clearAll: () => { type: string };
+  clear: <K extends keyof T>(key: K) => { type: string; payload: K };
   set: <K extends keyof T>(
     key: K,
-    value: T[K]
+    value: T[K],
   ) => { type: TDomenKey<K, D>; payload: T[K] };
 }
 
 function genActions<T extends TInit<T>>(
   initR: T,
-  domain: string
+  domain: string,
 ): ActionsN<T, typeof domain> {
   return {
+    clear: (k) => ({
+      type: `${domain}clear`,
+      payload: k,
+    }),
+    clearAll: () => ({
+      type: `${domain}clearAll`,
+    }),
     set: (k, v) => ({
       type: `${domain}${k}` as TDomenKey<typeof k, typeof domain>,
       payload: v,
@@ -77,11 +86,11 @@ function genActions<T extends TInit<T>>(
 
 export default function initReducer<T extends TInit<T>>(
   init: T,
-  name: string
+  name: string,
 ): {
   reducer: (
     state: ImRecord<T> | undefined,
-    action: TActionsR<T>
+    action: TActionsR<T>,
   ) => ImRecord<T>;
   actions: ActionsN<T, typeof name>;
 } {

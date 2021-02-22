@@ -1,13 +1,9 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import React, { useCallback, useEffect } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { AppState } from '../../../init/rootReducer';
-import { TREmployees } from './reduser';
-import {
-  employeesClearALL,
-  getlistEmployees,
-  getEmployeeData,
-} from './actions';
+import { TREmployees, actions } from './reduser';
+import { getlistEmployees, getEmployeeData } from './actions';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -18,7 +14,7 @@ const useStyles = makeStyles((theme: Theme) =>
     selectEmpty: {
       marginTop: theme.spacing(2),
     },
-  })
+  }),
 );
 
 export type TUseEmployeess = {
@@ -38,24 +34,28 @@ export function useEmployeess(): TUseEmployeess {
   const classes = useStyles();
   const dispatch = useDispatch();
   const employeesList = useSelector<AppState, TREmployees['employees']>(
-    ({ employees_reducer }) => employees_reducer.get('employees')
+    ({ employees_reducer }) => employees_reducer.get('employees'),
+    shallowEqual,
   );
 
   const roleList = useSelector<AppState, TREmployees['RoleList']>(
-    ({ employees_reducer }) => employees_reducer.get('RoleList')
+    ({ employees_reducer }) => employees_reducer.get('RoleList'),
+    shallowEqual,
   );
 
   const regionsList = useSelector<AppState, TREmployees['RegionsList']>(
-    ({ employees_reducer }) => employees_reducer.get('RegionsList')
+    ({ employees_reducer }) => employees_reducer.get('RegionsList'),
+    shallowEqual,
   );
   const employessData = useSelector<AppState, TREmployees['Data']>(
-    ({ employees_reducer }) => employees_reducer.get('Data')
+    ({ employees_reducer }) => employees_reducer.get('Data'),
+    shallowEqual,
   );
 
   useEffect(() => {
     dispatch(getlistEmployees());
     return () => {
-      dispatch(employeesClearALL());
+      dispatch(actions.clearAll());
     };
   }, [dispatch]);
   const [employee, setEmployee] = React.useState<string>('');
@@ -79,7 +79,7 @@ export function useEmployeess(): TUseEmployeess {
         dispatch(getEmployeeData(val));
       }
     },
-    [setEmployee, dispatch]
+    [setEmployee, dispatch],
   );
   const changeRegion = useCallback(
     (event: React.ChangeEvent<{ value: unknown }>) => {
@@ -89,7 +89,7 @@ export function useEmployeess(): TUseEmployeess {
       }
       setRegion(val);
     },
-    [setRegion]
+    [setRegion],
   );
   const changeRole = useCallback(
     (event: React.ChangeEvent<{ value: unknown }>) => {
@@ -99,7 +99,7 @@ export function useEmployeess(): TUseEmployeess {
       }
       setRole(val);
     },
-    [setRole]
+    [setRole],
   );
 
   return {

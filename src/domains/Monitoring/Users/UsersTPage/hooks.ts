@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { AppState } from '../../../../init/rootReducer';
@@ -20,19 +20,20 @@ const useStyles = makeStyles((theme: Theme) =>
     selectEmpty: {
       marginTop: theme.spacing(2),
     },
-  })
+  }),
 );
 
 export type TUseUsersTPage = {
   classes: Record<'root' | 'container' | 'formControl' | 'selectEmpty', string>;
-  usersPage: TRMonitoring['monit/UsersPage'];
+  usersPage: TRMonitoring['usersPage'];
 };
 export function useUsersTPage(): TUseUsersTPage {
   const dispatch = useDispatch();
   const classes = useStyles();
 
-  const usersPage = useSelector<AppState, TRMonitoring['monit/UsersPage']>(
-    ({ monitoring_reducer }) => monitoring_reducer.get('monit/UsersPage')
+  const usersPage = useSelector<AppState, TRMonitoring['usersPage']>(
+    ({ monitoring_reducer }) => monitoring_reducer.get('usersPage'),
+    shallowEqual,
   );
 
   useEffect(() => {

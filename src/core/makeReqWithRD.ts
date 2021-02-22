@@ -35,7 +35,7 @@ export type OptionsType<
  * нужен для ефектов саги чтобы указывать параметр дженерика
  */
 export type TMakeReqWithRD<T extends (v: Parameters<T>[0]) => ReturnType<T>> = (
-  options: OptionsType<T>
+  options: OptionsType<T>,
 ) => SagaIterator;
 
 export function* makeReqWithRD<
@@ -57,7 +57,6 @@ export function* makeReqWithRD<
     >(fetcher, parameters);
 
     receivedData = receivedData.set('data', result);
-    yield put(fill(receivedData));
   } catch (error) {
     console.error({ error });
     receivedData = receivedData.set('error', {

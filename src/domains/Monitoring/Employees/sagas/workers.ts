@@ -1,24 +1,15 @@
 import { SagaIterator } from '@redux-saga/core';
-import {
-  all,
-  call,
-  put,
-  SagaReturnType,
-  select,
-} from '@redux-saga/core/effects';
+import { all, call, SagaReturnType, select } from '@redux-saga/core/effects';
 import { makeReqWithRD, TMakeReqWithRD } from '../../../../core/makeReqWithRD';
-import { employeeslist } from '../actions';
 import {
   APIGetEmployeesDataById,
   APIGetlistEmployees,
   APIGetRegionsList,
   APIGetRoleList,
-  TAPIEmployeeData,
 } from '../../../../api';
 import { TGetEmployeeDataByIdAsync } from '../types';
-import { TAEmployeesMerge, TREmployees, actions } from '../reduser';
+import { TREmployees, actions } from '../reduser';
 import { AppState } from '../../../../init/rootReducer';
-import { FetchedData } from '../../../../core/fetchedData';
 
 export const getRoleList = ({
   employees_reducer,
@@ -61,10 +52,10 @@ export function* getEmployeeData({
 }: TGetEmployeeDataByIdAsync): SagaIterator<void> {
   try {
     const roleList: SagaReturnType<typeof getRoleList> = yield select(
-      getRoleList
+      getRoleList,
     );
     const regionsList: SagaReturnType<typeof getRegionsList> = yield select(
-      getRegionsList
+      getRegionsList,
     );
 
     if (

@@ -1,7 +1,6 @@
-import { Record } from 'immutable';
-import { genReceivedData, ReceivedData } from '../../../workers/makeReqWithRD';
+import { genFetchedData, FetchedData } from '../../../core/fetchedData';
 import { TAPIUsersPage } from '../../../api';
-import { TActionsR } from '../../../types';
+import initReducer from '../../../init/initReducer';
 
 export type RUserItem = {
   id: number;
@@ -9,39 +8,41 @@ export type RUserItem = {
 };
 
 export type TRMonitoring = {
-  'monit/listUsers': Record<ReceivedData<Array<RUserItem>>>;
-  'monit/UsersPage': Record<ReceivedData<TAPIUsersPage>>;
+  listUsers: FetchedData<Array<RUserItem>>;
+  usersPage: FetchedData<TAPIUsersPage>;
 };
 export const rInitMonitoring: TRMonitoring = {
-  'monit/listUsers': genReceivedData<Array<RUserItem>>([]),
-  'monit/UsersPage': genReceivedData<TAPIUsersPage>([]),
+  listUsers: genFetchedData<Array<RUserItem>>([]),
+  usersPage: genFetchedData<TAPIUsersPage>([]),
 };
+//
+// const State: Record.Factory<TRMonitoring> = Record(rInitMonitoring);
+//
+// export type TAMonitClear = {
+//   type: 'monit/clear';
+//   payload: keyof TRMonitoring;
+// };
+// export type TAMonitClearALL = {
+//   type: 'monit/clearAll';
+// };
+//
+// export type TActionsR_Monit =
+//   | TActionsR<TRMonitoring>
+//   | TAMonitClear
+//   | TAMonitClearALL;
 
-const State: Record.Factory<TRMonitoring> = Record(rInitMonitoring);
+// export const monitoring_reducer = function (
+//   state: Record<TRMonitoring> = State(),
+//   action: TActionsR_Monit
+// ): Record<TRMonitoring> {
+//   if (action.type === 'monit/clear') {
+//     return state.delete(action.payload);
+//   }
+//   if (action.type === 'monit/clearAll') {
+//     return state.clear();
+//   }
+//
+//   return state.set(action.type, action.payload);
+// };
 
-export type TAMonitClear = {
-  type: 'monit/clear';
-  payload: keyof TRMonitoring;
-};
-export type TAMonitClearALL = {
-  type: 'monit/clearAll';
-};
-
-export type TActionsR_Monit =
-  | TActionsR<TRMonitoring>
-  | TAMonitClear
-  | TAMonitClearALL;
-
-export const monitoring_reducer = function (
-  state: Record<TRMonitoring> = State(),
-  action: TActionsR_Monit
-): Record<TRMonitoring> {
-  if (action.type === 'monit/clear') {
-    return state.delete(action.payload);
-  }
-  if (action.type === 'monit/clearAll') {
-    return state.clear();
-  }
-
-  return state.set(action.type, action.payload);
-};
+export const { reducer, actions } = initReducer(rInitMonitoring, 'users');

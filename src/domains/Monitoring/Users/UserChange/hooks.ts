@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import React, { useCallback, useEffect } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { AppState } from '../../../../init/rootReducer';
@@ -14,21 +14,22 @@ const useStyles = makeStyles((theme: Theme) =>
     selectEmpty: {
       marginTop: theme.spacing(2),
     },
-  })
+  }),
 );
 
 export type TUseUserChange = {
   classes: Record<'formControl' | 'selectEmpty', string>;
   user: string;
   handleChange: (event: React.ChangeEvent<{ value: unknown }>) => void;
-  listUsers: TRMonitoring['monit/listUsers'];
+  listUsers: TRMonitoring['listUsers'];
 };
 export function useUserChange(): TUseUserChange {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const listUsers = useSelector<AppState, TRMonitoring['monit/listUsers']>(
-    ({ monitoring_reducer }) => monitoring_reducer.get('monit/listUsers')
+  const listUsers = useSelector<AppState, TRMonitoring['listUsers']>(
+    ({ monitoring_reducer }) => monitoring_reducer.get('listUsers'),
+    shallowEqual,
   );
 
   useEffect(() => {
@@ -48,7 +49,7 @@ export function useUserChange(): TUseUserChange {
         dispatch(getUsersPage(val));
       }
     },
-    [setUser, dispatch]
+    [setUser, dispatch],
   );
 
   return {

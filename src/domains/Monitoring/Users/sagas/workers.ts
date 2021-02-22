@@ -1,25 +1,21 @@
 import { SagaIterator } from 'redux-saga';
-import { put, call } from 'redux-saga/effects';
+import { call } from 'redux-saga/effects';
 import {
   APIGetAllUsersPage,
   APIGetlistUsers,
   APIGetUsersPageById,
 } from '../../../../api';
 
-import { TAMonitClear } from '../reduser';
+import { actions } from '../reduser';
 import { TGetUsersPageAsync } from '../types';
 
-import {
-  makeReqWithRD,
-  TMakeReqWithRD,
-} from '../../../../workers/makeReqWithRD';
-import { filLlistUsers, setUsersPage } from '../actions';
+import { makeReqWithRD, TMakeReqWithRD } from '../../../../core/makeReqWithRD';
 
 export function* workerGetlistUsers(): SagaIterator<void> {
   try {
     yield call<TMakeReqWithRD<typeof APIGetlistUsers>>(makeReqWithRD, {
       fetcher: APIGetlistUsers,
-      fill: filLlistUsers,
+      fill: (v) => actions.set('listUsers', v),
     });
   } catch (e) {
     console.error({ e });
@@ -29,15 +25,10 @@ export function* workerGetUsersPage({
   payload,
 }: TGetUsersPageAsync): SagaIterator<void> {
   try {
-    yield put<TAMonitClear>({
-      type: 'monit/clear',
-      payload: 'monit/UsersPage',
-    });
-
     if (payload === undefined) {
       yield call<TMakeReqWithRD<typeof APIGetAllUsersPage>>(makeReqWithRD, {
         fetcher: APIGetAllUsersPage,
-        fill: setUsersPage,
+        fill: (v) => actions.set('usersPage', v),
       });
       return;
     }
@@ -45,7 +36,7 @@ export function* workerGetUsersPage({
     if (typeof payload === 'string') {
       yield call<TMakeReqWithRD<typeof APIGetUsersPageById>>(makeReqWithRD, {
         fetcher: APIGetUsersPageById,
-        fill: setUsersPage,
+        fill: (v) => actions.set('usersPage', v),
         parameters: { field: 'usrId', value: payload },
       });
       return;
