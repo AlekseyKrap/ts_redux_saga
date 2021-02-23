@@ -1,5 +1,5 @@
 import { genFetchedData, FetchedData } from '../../../core/fetchedData';
-import { TAPIUsersPage } from '../../../api';
+import type { TAPIUsersPage } from '../../../api';
 import initReducer from '../../../init/initReducer';
 
 export type RUserItem = {

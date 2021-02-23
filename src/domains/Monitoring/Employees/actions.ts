@@ -1,4 +1,7 @@
-import { TGetEmployeeDataByIdAsync, TGetlistEmployeesAsync } from './types';
+import type {
+  TGetEmployeeDataByIdAsync,
+  TGetlistEmployeesAsync,
+} from './types';
 
 export function getlistEmployees(): TGetlistEmployeesAsync {
   return {
@@ -7,7 +10,7 @@ export function getlistEmployees(): TGetlistEmployeesAsync {
 }
 
 export function getEmployeeData(
-  employeeId: TGetEmployeeDataByIdAsync['payload']
+  employeeId: TGetEmployeeDataByIdAsync['payload'],
 ): TGetEmployeeDataByIdAsync {
   return {
     type: 'employees/getData',

@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
-import { AppState } from '../../init/rootReducer';
+import type { AppState } from '../../init/rootReducer';
 import { TRMenu, actions } from './reduser';
 
 export type TUseMenu = {
@@ -13,7 +13,7 @@ export function useMenu(): TUseMenu {
 
   const open = useSelector<AppState, TRMenu['isOpen']>(
     ({ menu_reducer }) => menu_reducer.get('isOpen'),
-    shallowEqual
+    shallowEqual,
   );
 
   const handleDrawerOpen = useCallback(() => {

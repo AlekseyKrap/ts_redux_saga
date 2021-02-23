@@ -1,8 +1,8 @@
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { AppState } from '../../../../init/rootReducer';
-import { TRMonitoring } from '../reduser';
+import type { AppState } from '../../../../init/rootReducer';
+import type { TRMonitoring } from '../reduser';
 import { getUsersPage } from '../actions';
 
 const useStyles = makeStyles((theme: Theme) =>

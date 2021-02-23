@@ -1,4 +1,4 @@
-import { TGetlistUsersAsync, TGetUsersPageAsync } from './types';
+import type { TGetlistUsersAsync, TGetUsersPageAsync } from './types';
 
 export function getlistUsers(): TGetlistUsersAsync {
   return {

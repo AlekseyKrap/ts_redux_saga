@@ -1,4 +1,4 @@
-export type R = {
+export type AnyRecord = {
   [KR: string]: unknown;
 };
 
@@ -14,7 +14,7 @@ export type TransformedType<T extends Record<string, unknown>> = {
   };
 };
 
-export type TActionsR<T extends R> = TransformedType<T> extends {
+export type TActionsR<T extends AnyRecord> = TransformedType<T> extends {
   [K in keyof TransformedType<T>]: infer P;
 }
   ? P

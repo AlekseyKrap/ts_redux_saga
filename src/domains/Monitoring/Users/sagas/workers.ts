@@ -1,4 +1,4 @@
-import { SagaIterator } from 'redux-saga';
+import type { SagaIterator } from 'redux-saga';
 import { call } from 'redux-saga/effects';
 import {
   APIGetAllUsersPage,
@@ -7,7 +7,7 @@ import {
 } from '../../../../api';
 
 import { actions } from '../reduser';
-import { TGetUsersPageAsync } from '../types';
+import type { TGetUsersPageAsync } from '../types';
 
 import { makeReqWithRD, TMakeReqWithRD } from '../../../../core/makeReqWithRD';
 

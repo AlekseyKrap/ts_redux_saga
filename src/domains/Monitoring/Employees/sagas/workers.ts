@@ -1,4 +1,4 @@
-import { SagaIterator } from '@redux-saga/core';
+import type { SagaIterator } from '@redux-saga/core';
 import { all, call, SagaReturnType, select } from '@redux-saga/core/effects';
 import { makeReqWithRD, TMakeReqWithRD } from '../../../../core/makeReqWithRD';
 import {
@@ -7,9 +7,9 @@ import {
   APIGetRegionsList,
   APIGetRoleList,
 } from '../../../../api';
-import { TGetEmployeeDataByIdAsync } from '../types';
+import type { TGetEmployeeDataByIdAsync } from '../types';
 import { TREmployees, actions } from '../reduser';
-import { AppState } from '../../../../init/rootReducer';
+import type { AppState } from '../../../../init/rootReducer';
 
 export const getRoleList = ({
   employees_reducer,

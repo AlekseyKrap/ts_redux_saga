@@ -1,7 +1,7 @@
-import { SagaIterator } from '@redux-saga/core';
+import type { SagaIterator } from '@redux-saga/core';
 import { takeEvery } from 'redux-saga/effects';
 import { workerGetlistUsers, workerGetUsersPage } from './workers';
-import { TGetUsersPageAsync } from '../types';
+import type { TGetUsersPageAsync } from '../types';
 
 export default function* watchMonitoring(): SagaIterator {
   yield takeEvery('monit/getListUsers', workerGetlistUsers);
