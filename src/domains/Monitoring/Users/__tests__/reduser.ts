@@ -1,42 +1,32 @@
 import { Record } from 'immutable';
-import { genReceivedData } from '../../../../workers/makeReqWithRD';
 import { TAPIUsersPage } from '../../../../api';
-import {
-  monitoring_reducer,
-  RUserItem,
-  TActionsR_Monit,
-  TAMonitClear,
-  TAMonitClearALL,
-  TRMonitoring,
-} from '../reduser';
-import { TActionlistUsers, TMonit_UsersPage } from '../types';
+import { RUserItem, TRMonitoring, reducer, actions } from '../reduser';
+import { genFetchedData } from '../../../../core/fetchedData';
+import { TRActionsR } from '../../../../types';
 
 describe('Monitoring -> Users -> reduser:', () => {
   const rInitMonitoring: TRMonitoring = {
-    'monit/listUsers': genReceivedData<Array<RUserItem>>([]),
-    'monit/UsersPage': genReceivedData<TAPIUsersPage>([]),
+    listUsers: genFetchedData<Array<RUserItem>>([]),
+    usersPage: genFetchedData<TAPIUsersPage>([]),
   };
   const State = Record(rInitMonitoring);
   const defState = new State();
-  const defAction = {} as TActionsR_Monit;
+  const defAction = {} as TRActionsR<TRMonitoring>;
   test('should describe initial state by default', () => {
-    expect(JSON.stringify(monitoring_reducer(undefined, defAction))).toBe(
-      JSON.stringify(defState)
+    expect(JSON.stringify(reducer(undefined, defAction))).toBe(
+      JSON.stringify(defState),
     );
   });
   test('should update state value by key monit/listUsers', () => {
-    const payload = genReceivedData<Array<RUserItem>>([
+    const payload = genFetchedData<Array<RUserItem>>([
       { id: 1, login: '@JoeyTribbiani' },
     ]);
-    const action: TActionlistUsers = {
-      type: 'monit/listUsers',
-      payload,
-    };
-    const state = monitoring_reducer(undefined, action);
-    expect(state.get('monit/listUsers')).toEqual(payload);
+    const action = actions.set('listUsers', payload);
+    const state = reducer(undefined, action);
+    expect(state.get('listUsers')).toEqual(payload);
   });
   test('should update state value by key monit/UsersPage', () => {
-    const payload = genReceivedData<TAPIUsersPage>([
+    const payload = genFetchedData<TAPIUsersPage>([
       {
         id: 1,
         usrId: 1,
@@ -45,15 +35,12 @@ describe('Monitoring -> Users -> reduser:', () => {
         page: 'page1',
       },
     ]);
-    const action: TMonit_UsersPage = {
-      type: 'monit/UsersPage',
-      payload,
-    };
-    const state = monitoring_reducer(undefined, action);
-    expect(state.get('monit/UsersPage')).toEqual(payload);
+    const action = actions.set('usersPage', payload);
+    const state = reducer(undefined, action);
+    expect(state.get('usersPage')).toEqual(payload);
   });
   test('should update state value by key monit/clear', () => {
-    const payloadUsersPage = genReceivedData<TAPIUsersPage>([
+    const payloadUsersPage = genFetchedData<TAPIUsersPage>([
       {
         id: 1,
         usrId: 1,
@@ -62,22 +49,16 @@ describe('Monitoring -> Users -> reduser:', () => {
         page: 'page1',
       },
     ]);
-    const actionUsersPage: TMonit_UsersPage = {
-      type: 'monit/UsersPage',
-      payload: payloadUsersPage,
-    };
-    const stateStep1 = monitoring_reducer(undefined, actionUsersPage);
-    expect(stateStep1.get('monit/UsersPage')).toEqual(payloadUsersPage);
+    const actionUsersPage = actions.set('usersPage', payloadUsersPage);
+    const stateStep1 = reducer(undefined, actionUsersPage);
+    expect(stateStep1.get('usersPage')).toEqual(payloadUsersPage);
 
-    const actionClear: TAMonitClear = {
-      type: 'monit/clear',
-      payload: 'monit/UsersPage',
-    };
-    const stateStep2 = monitoring_reducer(stateStep1, actionClear);
-    expect(stateStep2.get('monit/UsersPage').get('data')).toEqual([]);
+    const actionClear = actions.clear('usersPage');
+    const stateStep2 = reducer(stateStep1, actionClear);
+    expect(stateStep2.get('usersPage').get('data')).toEqual([]);
   });
   test('should update state value by key monit/clearAll', () => {
-    const payloadUsersPage = genReceivedData<TAPIUsersPage>([
+    const payloadUsersPage = genFetchedData<TAPIUsersPage>([
       {
         id: 1,
         usrId: 1,
@@ -86,28 +67,20 @@ describe('Monitoring -> Users -> reduser:', () => {
         page: 'page1',
       },
     ]);
-    const actionUsersPage: TMonit_UsersPage = {
-      type: 'monit/UsersPage',
-      payload: payloadUsersPage,
-    };
-    const stateStep1 = monitoring_reducer(undefined, actionUsersPage);
-    expect(stateStep1.get('monit/UsersPage')).toEqual(payloadUsersPage);
+    const actionUsersPage = actions.set('usersPage', payloadUsersPage);
+    const stateStep1 = reducer(undefined, actionUsersPage);
+    expect(stateStep1.get('usersPage')).toEqual(payloadUsersPage);
 
-    const payloadlistUsers = genReceivedData<Array<RUserItem>>([
+    const payloadlistUsers = genFetchedData<Array<RUserItem>>([
       { id: 1, login: '@JoeyTribbiani' },
     ]);
-    const action: TActionlistUsers = {
-      type: 'monit/listUsers',
-      payload: payloadlistUsers,
-    };
-    const stateStep2 = monitoring_reducer(stateStep1, action);
-    expect(stateStep2.get('monit/listUsers')).toEqual(payloadlistUsers);
+    const action = actions.set('listUsers', payloadlistUsers);
+    const stateStep2 = reducer(stateStep1, action);
+    expect(stateStep2.get('listUsers')).toEqual(payloadlistUsers);
 
-    const actionClearAll: TAMonitClearALL = {
-      type: 'monit/clearAll',
-    };
-    const stateStep3 = monitoring_reducer(stateStep2, actionClearAll);
-    expect(stateStep3.get('monit/UsersPage').get('data')).toEqual([]);
-    expect(stateStep3.get('monit/listUsers').get('data')).toEqual([]);
+    const actionClearAll = actions.clearAll();
+    const stateStep3 = reducer(stateStep2, actionClearAll);
+    expect(stateStep3.get('usersPage').get('data')).toEqual([]);
+    expect(stateStep3.get('listUsers').get('data')).toEqual([]);
   });
 });

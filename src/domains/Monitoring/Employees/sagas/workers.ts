@@ -6,10 +6,15 @@ import {
   APIGetlistEmployees,
   APIGetRegionsList,
   APIGetRoleList,
+  TAPIEmployeeData,
+  TAPIlistEmployees,
+  TAPIRegionsList,
+  TAPIRoleList,
 } from '../../../../api';
 import type { TGetEmployeeDataByIdAsync } from '../types';
 import { TREmployees, actions } from '../reduser';
 import type { AppState } from '../../../../init/rootReducer';
+import type { FetchedData } from '../../../../core/fetchedData';
 
 export const getRoleList = ({
   employees_reducer,
@@ -19,11 +24,22 @@ export const getRegionsList = ({
 }: AppState): TREmployees['RegionsList'] =>
   employees_reducer.get('RegionsList');
 
+export const fillEmployees = (v: FetchedData<TAPIlistEmployees>) =>
+  actions.set('employees', v);
+
+export const fillRoleList = (v: FetchedData<TAPIRoleList>) =>
+  actions.set('RoleList', v);
+
+export const fillRegionsList = (v: FetchedData<TAPIRegionsList>) =>
+  actions.set('RegionsList', v);
+export const fillData = (v: FetchedData<TAPIEmployeeData>) =>
+  actions.set('Data', v);
+
 export function* getlistEmployees(): SagaIterator<void> {
   try {
     yield call<TMakeReqWithRD<typeof APIGetlistEmployees>>(makeReqWithRD, {
       fetcher: APIGetlistEmployees,
-      fill: (v) => actions.set('employees', v),
+      fill: fillEmployees,
     });
   } catch (e) {
     console.error({ e });
@@ -35,11 +51,11 @@ export function* getCatalogs(): SagaIterator<void> {
     yield all([
       call<TMakeReqWithRD<typeof APIGetRoleList>>(makeReqWithRD, {
         fetcher: APIGetRoleList,
-        fill: (v) => actions.set('RoleList', v),
+        fill: fillRoleList,
       }),
       call<TMakeReqWithRD<typeof APIGetRegionsList>>(makeReqWithRD, {
         fetcher: APIGetRegionsList,
-        fill: (v) => actions.set('RegionsList', v),
+        fill: fillRegionsList,
       }),
     ]);
   } catch (e) {
@@ -67,7 +83,7 @@ export function* getEmployeeData({
 
     yield call<TMakeReqWithRD<typeof APIGetEmployeesDataById>>(makeReqWithRD, {
       fetcher: APIGetEmployeesDataById,
-      fill: (v) => actions.set('Data', v),
+      fill: fillData,
       parameters: { value: payload },
     });
   } catch (e) {

@@ -8,10 +8,12 @@ export type TInit<T extends Record<string, unknown>> = Record<
 >;
 
 export type TransformedType<T extends Record<string, unknown>> = {
-  [K1 in keyof T]: {
-    type: K1;
-    payload: T[K1];
-  };
+  [K1 in keyof T]: K1 extends string
+    ? {
+        type: `${string}${K1}`;
+        payload: T[K1];
+      }
+    : never;
 };
 
 export type TActionsR<T extends AnyRecord> = TransformedType<T> extends {
@@ -19,3 +21,14 @@ export type TActionsR<T extends AnyRecord> = TransformedType<T> extends {
 }
   ? P
   : never;
+
+export type TActionClear<T> = {
+  type: `${string}clear`;
+  payload: T;
+};
+export type TActionClearAll = { type: `${string}clearAll` };
+
+export type TRActionsR<T extends TInit<T>> =
+  | TActionsR<T>
+  | TActionClear<keyof T>
+  | TActionClearAll;

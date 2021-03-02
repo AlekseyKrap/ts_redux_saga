@@ -1,5 +1,11 @@
 import { Record as ImRecord } from 'immutable';
-import type { TActionsR, TInit } from '../types';
+import type {
+  TActionClear,
+  TActionClearAll,
+  TActionsR,
+  TInit,
+  TRActionsR,
+} from '../types';
 
 /**
  * Генерирует редьюсер
@@ -10,14 +16,12 @@ import type { TActionsR, TInit } from '../types';
 function genReducer<T extends TInit<T>>(
   init: T,
   domain: string,
-): (state: ImRecord<T> | undefined, action: TActionsR<T>) => ImRecord<T> {
+): (state: ImRecord<T> | undefined, action: TRActionsR<T>) => ImRecord<T> {
   const State: ImRecord.Factory<T> = ImRecord(init);
-
-  type TActions = TActionsR<T>;
 
   const reducer = function (
     state: ImRecord<T> = State(),
-    action: TActions,
+    action: TRActionsR<T>,
   ): ImRecord<T> {
     const { type, payload } = action;
 
@@ -29,8 +33,8 @@ function genReducer<T extends TInit<T>>(
     if (generalType === 'clearAll') {
       return state.clear();
     }
-    if (action.type === 'clear') {
-      return state.delete(generalType);
+    if (generalType === 'clear') {
+      return state.delete(payload);
     }
 
     return state.set(generalType, payload);
@@ -41,9 +45,9 @@ type TDomenKey<K, D extends string> = K extends string ? `${D}${K}` : K;
 
 interface ActionsN<T extends TInit<T>, D extends string> {
   /** очистить все  */
-  clearAll: () => { type: string };
+  clearAll: () => TActionClearAll;
   /** очистить по ключу  */
-  clear: <K extends keyof T>(key: K) => { type: string; payload: K };
+  clear: <K extends keyof T>(key: K) => TActionClear<K>;
   /** установить значение  */
   set: <K extends keyof T>(
     key: K,
@@ -88,7 +92,7 @@ export default function initReducer<T extends TInit<T>>(
 ): {
   reducer: (
     state: ImRecord<T> | undefined,
-    action: TActionsR<T>,
+    action: TRActionsR<T>,
   ) => ImRecord<T>;
   actions: ActionsN<T, typeof name>;
 } {

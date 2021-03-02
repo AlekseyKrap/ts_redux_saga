@@ -17,11 +17,13 @@ import {
 import { TUseUserChange, useUserChange } from '../UserChange/hooks';
 import { rootReducer } from '../../../../init/rootReducer';
 import { middleware } from '../../../../init/middleware';
-import { genReceivedData } from '../../../../workers/makeReqWithRD';
 import { TUseUsersTPage, useUsersTPage } from '../UsersTPage/hooks';
+import { actions, RUserItem } from '../reduser';
+import { genFetchedData } from '../../../../core/fetchedData';
+import { TAPIUsersPage } from '../../../../api';
 
 function isReactChangeEvent(
-  v: unknown
+  v: unknown,
 ): v is React.ChangeEvent<{ value: unknown }> {
   if (typeof v !== 'object' || v === null) return false;
   if (!('target' in v)) return false;
@@ -42,7 +44,7 @@ describe('Monitoring -> Users -> UserChange -> hooks:', () => {
   beforeEach(() => {
     store = createStore(
       rootReducer,
-      applyMiddleware(...middleware, testActions)
+      applyMiddleware(...middleware, testActions),
     );
     component = renderHook(() => useUserChange(), {
       wrapper: ({ children }) => <Provider store={store}>{children}</Provider>,
@@ -52,7 +54,7 @@ describe('Monitoring -> Users -> UserChange -> hooks:', () => {
     expect(lastAction).toEqual({ type: 'monit/getListUsers' });
   });
   test('should describe set listUsers', () => {
-    const listUsers = genReceivedData([
+    const listUsers = genFetchedData<Array<RUserItem>>([
       {
         id: 1,
         login: 'User#1',
@@ -67,7 +69,7 @@ describe('Monitoring -> Users -> UserChange -> hooks:', () => {
       },
     ]);
     act(() => {
-      store.dispatch({ type: 'monit/listUsers', payload: listUsers });
+      store.dispatch(actions.set('listUsers', listUsers));
     });
     expect(component.result.current.listUsers).toEqual(listUsers);
   });
@@ -97,7 +99,7 @@ describe('Monitoring -> Users -> UsersTPage -> hooks:', () => {
   beforeEach(() => {
     store = createStore(
       rootReducer,
-      applyMiddleware(...middleware, testActions)
+      applyMiddleware(...middleware, testActions),
     );
     component = renderHook(() => useUsersTPage(), {
       wrapper: ({ children }) => <Provider store={store}>{children}</Provider>,
@@ -107,7 +109,7 @@ describe('Monitoring -> Users -> UsersTPage -> hooks:', () => {
     expect(lastAction).toEqual({ type: 'monit/getUsersPage' });
   });
   test('should describe set listUsers', () => {
-    const usersPage = genReceivedData([
+    const usersPage = genFetchedData<TAPIUsersPage>([
       {
         id: 1,
         usrId: 1,
@@ -124,7 +126,7 @@ describe('Monitoring -> Users -> UsersTPage -> hooks:', () => {
       },
     ]);
     act(() => {
-      store.dispatch({ type: 'monit/UsersPage', payload: usersPage });
+      store.dispatch(actions.set('usersPage', usersPage));
     });
     expect(component.result.current.usersPage).toEqual(usersPage);
   });

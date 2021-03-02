@@ -16,11 +16,17 @@ import React from 'react';
 import { rootReducer } from '../../../../init/rootReducer';
 import { middleware } from '../../../../init/middleware';
 import { TUseEmployeess, useEmployeess } from '../hooks';
-import { genReceivedData } from '../../../../workers/makeReqWithRD';
-import { TAPIEmployeeData } from '../../../../api';
+import {
+  TAPIEmployeeData,
+  TAPIlistEmployees,
+  TAPIRegionsList,
+  TAPIRoleList,
+} from '../../../../api';
+import { genFetchedData } from '../../../../core/fetchedData';
+import { actions } from '../reduser';
 
 function isReactChangeEvent(
-  v: unknown
+  v: unknown,
 ): v is React.ChangeEvent<{ value: unknown }> {
   if (typeof v !== 'object' || v === null) return false;
   if (!('target' in v)) return false;
@@ -41,7 +47,7 @@ describe('Monitoring -> Employees -> hooks:', () => {
   beforeEach(() => {
     store = createStore(
       rootReducer,
-      applyMiddleware(...middleware, testActions)
+      applyMiddleware(...middleware, testActions),
     );
     component = renderHook(() => useEmployeess(), {
       wrapper: ({ children }) => <Provider store={store}>{children}</Provider>,
@@ -56,15 +62,18 @@ describe('Monitoring -> Employees -> hooks:', () => {
   });
   test('should describe  useEffect on employess data', () => {
     act(() => {
-      store.dispatch({
-        type: 'employess/Data',
-        payload: genReceivedData<TAPIEmployeeData>({
-          id: 3,
-          role: 3,
-          region: 4,
-        }),
-      });
+      store.dispatch(
+        actions.set(
+          'Data',
+          genFetchedData<TAPIEmployeeData>({
+            id: 3,
+            role: 3,
+            region: 4,
+          }),
+        ),
+      );
     });
+
     expect(component.result.current.role).toBe('3');
     expect(component.result.current.region).toBe('4');
   });
@@ -85,9 +94,16 @@ describe('Monitoring -> Employees -> hooks:', () => {
       { id: 2, fullName: 'Chandler Bing' },
     ];
     act(() => {
-      store.dispatch({ type: 'employees', payload: employeesList });
+      store.dispatch(
+        actions.set(
+          'employees',
+          genFetchedData<TAPIlistEmployees>(employeesList),
+        ),
+      );
     });
-    expect(component.result.current.employeesList).toEqual(employeesList);
+    expect(component.result.current.employeesList.get('data')).toEqual(
+      employeesList,
+    );
   });
 
   test('should describe  changeRole ', () => {
@@ -106,9 +122,11 @@ describe('Monitoring -> Employees -> hooks:', () => {
       { id: 3, description: 'operator' },
     ];
     act(() => {
-      store.dispatch({ type: 'employees/RoleList', payload: roleList });
+      store.dispatch(
+        actions.set('RoleList', genFetchedData<TAPIRoleList>(roleList)),
+      );
     });
-    expect(component.result.current.roleList).toEqual(roleList);
+    expect(component.result.current.roleList.get('data')).toEqual(roleList);
   });
   test('should describe  changeRegion ', () => {
     act(() => {
@@ -126,8 +144,15 @@ describe('Monitoring -> Employees -> hooks:', () => {
       { id: 3, description: 'eastern' },
     ];
     act(() => {
-      store.dispatch({ type: 'employees/RegionsList', payload: regionsList });
+      store.dispatch(
+        actions.set(
+          'RegionsList',
+          genFetchedData<TAPIRegionsList>(regionsList),
+        ),
+      );
     });
-    expect(component.result.current.regionsList).toEqual(regionsList);
+    expect(component.result.current.regionsList.get('data')).toEqual(
+      regionsList,
+    );
   });
 });
