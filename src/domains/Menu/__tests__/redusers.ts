@@ -1,26 +1,22 @@
 import { Record } from 'immutable';
-import { menu_reducer } from '../reduser';
-import { TSetOpenMenuAction } from '../types';
+import { reducer, TRMenu, actions } from '../reduser';
+import { TRActionsR } from '../../../types';
 
 describe('menu reduser:', () => {
   const rInitRMenu = {
-    menu_isOpen: false,
+    isOpen: false,
   };
   const State = Record(rInitRMenu);
   const defState = new State();
+  const defAction = {} as TRActionsR<TRMenu>;
 
   test('should describe initial state by default', () => {
-    const defAction: any = {};
-    expect(menu_reducer(undefined, defAction).hashCode()).toBe(
-      defState.hashCode()
-    );
+    expect(reducer(undefined, defAction).hashCode()).toBe(defState.hashCode());
   });
-  test('should update state value by key menu_isOpen', () => {
-    const action: TSetOpenMenuAction = {
-      type: 'menu_isOpen',
-      payload: true,
-    };
-    const state = menu_reducer(undefined, action);
-    expect(state.get('menu_isOpen')).toBe(true);
+
+  test('should update state value by key isOpen', () => {
+    const action = actions.set('isOpen', true);
+    const state = reducer(undefined, action);
+    expect(state.get('isOpen')).toBe(true);
   });
 });

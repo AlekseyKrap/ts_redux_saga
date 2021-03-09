@@ -4,23 +4,32 @@ import {
   APIGetAllUsersPage,
   APIGetlistUsers,
   APIGetUsersPageById,
+  TAPIlistUsersResp,
+  TAPIUsersPage,
 } from '../../../../api';
 
 import { actions } from '../reduser';
 import type { TGetUsersPageAsync } from '../types';
 
 import { makeReqWithRD, TMakeReqWithRD } from '../../../../core/makeReqWithRD';
+import type { FetchedData } from '../../../../core/fetchedData';
+
+export const fillistUsers = (v: FetchedData<TAPIlistUsersResp>) =>
+  actions.set('listUsers', v);
+export const fillUsersPage = (v: FetchedData<TAPIUsersPage>) =>
+  actions.set('usersPage', v);
 
 export function* workerGetlistUsers(): SagaIterator<void> {
   try {
     yield call<TMakeReqWithRD<typeof APIGetlistUsers>>(makeReqWithRD, {
       fetcher: APIGetlistUsers,
-      fill: (v) => actions.set('listUsers', v),
+      fill: fillistUsers,
     });
   } catch (e) {
     console.error({ e });
   }
 }
+
 export function* workerGetUsersPage({
   payload,
 }: TGetUsersPageAsync): SagaIterator<void> {
@@ -28,7 +37,7 @@ export function* workerGetUsersPage({
     if (payload === undefined) {
       yield call<TMakeReqWithRD<typeof APIGetAllUsersPage>>(makeReqWithRD, {
         fetcher: APIGetAllUsersPage,
-        fill: (v) => actions.set('usersPage', v),
+        fill: fillUsersPage,
       });
       return;
     }
@@ -36,7 +45,7 @@ export function* workerGetUsersPage({
     if (typeof payload === 'string') {
       yield call<TMakeReqWithRD<typeof APIGetUsersPageById>>(makeReqWithRD, {
         fetcher: APIGetUsersPageById,
-        fill: (v) => actions.set('usersPage', v),
+        fill: fillUsersPage,
         parameters: { field: 'usrId', value: payload },
       });
       return;
