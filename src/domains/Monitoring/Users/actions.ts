@@ -6,7 +6,7 @@ export function getlistUsers(): TGetlistUsersAsync {
   };
 }
 export function getUsersPage(
-  userId?: TGetUsersPageAsync['payload'],
+  userId?: TGetUsersPageAsync['payload']
 ): TGetUsersPageAsync {
   return {
     type: 'monit/getUsersPage',

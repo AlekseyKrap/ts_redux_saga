@@ -26,7 +26,7 @@ import { genFetchedData } from '../../../../core/fetchedData';
 import { actions } from '../reduser';
 
 function isReactChangeEvent(
-  v: unknown,
+  v: unknown
 ): v is React.ChangeEvent<{ value: unknown }> {
   if (typeof v !== 'object' || v === null) return false;
   if (!('target' in v)) return false;
@@ -47,7 +47,7 @@ describe('Monitoring -> Employees -> hooks:', () => {
   beforeEach(() => {
     store = createStore(
       rootReducer,
-      applyMiddleware(...middleware, testActions),
+      applyMiddleware(...middleware, testActions)
     );
     component = renderHook(() => useEmployeess(), {
       wrapper: ({ children }) => <Provider store={store}>{children}</Provider>,
@@ -69,8 +69,8 @@ describe('Monitoring -> Employees -> hooks:', () => {
             id: 3,
             role: 3,
             region: 4,
-          }),
-        ),
+          })
+        )
       );
     });
 
@@ -97,12 +97,12 @@ describe('Monitoring -> Employees -> hooks:', () => {
       store.dispatch(
         actions.set(
           'employees',
-          genFetchedData<TAPIlistEmployees>(employeesList),
-        ),
+          genFetchedData<TAPIlistEmployees>(employeesList)
+        )
       );
     });
     expect(component.result.current.employeesList.get('data')).toEqual(
-      employeesList,
+      employeesList
     );
   });
 
@@ -123,7 +123,7 @@ describe('Monitoring -> Employees -> hooks:', () => {
     ];
     act(() => {
       store.dispatch(
-        actions.set('RoleList', genFetchedData<TAPIRoleList>(roleList)),
+        actions.set('RoleList', genFetchedData<TAPIRoleList>(roleList))
       );
     });
     expect(component.result.current.roleList.get('data')).toEqual(roleList);
@@ -145,14 +145,11 @@ describe('Monitoring -> Employees -> hooks:', () => {
     ];
     act(() => {
       store.dispatch(
-        actions.set(
-          'RegionsList',
-          genFetchedData<TAPIRegionsList>(regionsList),
-        ),
+        actions.set('RegionsList', genFetchedData<TAPIRegionsList>(regionsList))
       );
     });
     expect(component.result.current.regionsList.get('data')).toEqual(
-      regionsList,
+      regionsList
     );
   });
 });

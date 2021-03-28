@@ -15,13 +15,13 @@ import type {
  */
 function genReducer<T extends TInit<T>>(
   init: T,
-  domain: string,
+  domain: string
 ): (state: ImRecord<T> | undefined, action: TRActionsR<T>) => ImRecord<T> {
   const State: ImRecord.Factory<T> = ImRecord(init);
 
   const reducer = function (
     state: ImRecord<T> = State(),
-    action: TRActionsR<T>,
+    action: TRActionsR<T>
   ): ImRecord<T> {
     const { type, payload } = action;
 
@@ -51,7 +51,7 @@ interface ActionsN<T extends TInit<T>, D extends string> {
   /** установить значение  */
   set: <K extends keyof T>(
     key: K,
-    value: T[K],
+    value: T[K]
   ) => { type: TDomenKey<K, D>; payload: T[K] };
 }
 
@@ -63,7 +63,7 @@ interface ActionsN<T extends TInit<T>, D extends string> {
  */
 function genActions<T extends TInit<T>>(
   initR: T,
-  domain: string,
+  domain: string
 ): ActionsN<T, typeof domain> {
   return {
     clear: (k) => ({
@@ -88,11 +88,11 @@ function genActions<T extends TInit<T>>(
  */
 export default function initReducer<T extends TInit<T>>(
   init: T,
-  name: string,
+  name: string
 ): {
   reducer: (
     state: ImRecord<T> | undefined,
-    action: TRActionsR<T>,
+    action: TRActionsR<T>
   ) => ImRecord<T>;
   actions: ActionsN<T, typeof name>;
 } {

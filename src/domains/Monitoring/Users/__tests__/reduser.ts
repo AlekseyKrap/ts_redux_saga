@@ -14,7 +14,7 @@ describe('Monitoring -> Users -> reduser:', () => {
   const defAction = {} as TRActionsR<TRMonitoring>;
   test('should describe initial state by default', () => {
     expect(JSON.stringify(reducer(undefined, defAction))).toBe(
-      JSON.stringify(defState),
+      JSON.stringify(defState)
     );
   });
   test('should update state value by key monit/listUsers', () => {

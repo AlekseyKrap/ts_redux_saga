@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme: Theme) =>
     selectEmpty: {
       marginTop: theme.spacing(2),
     },
-  }),
+  })
 );
 
 export type TUseEmployeess = {
@@ -35,21 +35,21 @@ export function useEmployeess(): TUseEmployeess {
   const dispatch = useDispatch();
   const employeesList = useSelector<AppState, TREmployees['employees']>(
     ({ employees_reducer }) => employees_reducer.get('employees'),
-    shallowEqual,
+    shallowEqual
   );
 
   const roleList = useSelector<AppState, TREmployees['RoleList']>(
     ({ employees_reducer }) => employees_reducer.get('RoleList'),
-    shallowEqual,
+    shallowEqual
   );
 
   const regionsList = useSelector<AppState, TREmployees['RegionsList']>(
     ({ employees_reducer }) => employees_reducer.get('RegionsList'),
-    shallowEqual,
+    shallowEqual
   );
   const employessData = useSelector<AppState, TREmployees['Data']>(
     ({ employees_reducer }) => employees_reducer.get('Data'),
-    shallowEqual,
+    shallowEqual
   );
 
   useEffect(() => {
@@ -79,7 +79,7 @@ export function useEmployeess(): TUseEmployeess {
         dispatch(getEmployeeData(val));
       }
     },
-    [setEmployee, dispatch],
+    [setEmployee, dispatch]
   );
   const changeRegion = useCallback(
     (event: React.ChangeEvent<{ value: unknown }>) => {
@@ -89,7 +89,7 @@ export function useEmployeess(): TUseEmployeess {
       }
       setRegion(val);
     },
-    [setRegion],
+    [setRegion]
   );
   const changeRole = useCallback(
     (event: React.ChangeEvent<{ value: unknown }>) => {
@@ -99,7 +99,7 @@ export function useEmployeess(): TUseEmployeess {
       }
       setRole(val);
     },
-    [setRole],
+    [setRole]
   );
 
   return {

@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
     selectEmpty: {
       marginTop: theme.spacing(2),
     },
-  }),
+  })
 );
 
 export type TUseUsersTPage = {
@@ -33,7 +33,7 @@ export function useUsersTPage(): TUseUsersTPage {
 
   const usersPage = useSelector<AppState, TRMonitoring['usersPage']>(
     ({ monitoring_reducer }) => monitoring_reducer.get('usersPage'),
-    shallowEqual,
+    shallowEqual
   );
 
   useEffect(() => {

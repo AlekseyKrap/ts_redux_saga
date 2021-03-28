@@ -10,7 +10,7 @@ export function getlistEmployees(): TGetlistEmployeesAsync {
 }
 
 export function getEmployeeData(
-  employeeId: TGetEmployeeDataByIdAsync['payload'],
+  employeeId: TGetEmployeeDataByIdAsync['payload']
 ): TGetEmployeeDataByIdAsync {
   return {
     type: 'employees/getData',

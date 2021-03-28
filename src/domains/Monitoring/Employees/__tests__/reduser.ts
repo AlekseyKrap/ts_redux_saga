@@ -32,7 +32,7 @@ describe('Monitoring -> Employees -> reduser:', () => {
   test('should update state value by key employees/RoleList', () => {
     const action = actions.set(
       'RoleList',
-      genFetchedData<TAPIRoleList>([{ id: 1, description: 'administrator' }]),
+      genFetchedData<TAPIRoleList>([{ id: 1, description: 'administrator' }])
     );
     const state = reducer(undefined, action);
     expect(state.get('RoleList').get('data')).toEqual([

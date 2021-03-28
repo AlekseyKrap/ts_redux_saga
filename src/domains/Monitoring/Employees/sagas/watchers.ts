@@ -7,6 +7,6 @@ export default function* watchMonitoring(): SagaIterator {
   yield takeEvery('employees/getList', getlistEmployees);
   yield takeEvery<TGetEmployeeDataByIdAsync>(
     'employees/getData',
-    getEmployeeData,
+    getEmployeeData
   );
 }

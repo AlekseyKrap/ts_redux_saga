@@ -68,10 +68,10 @@ export function* getEmployeeData({
 }: TGetEmployeeDataByIdAsync): SagaIterator<void> {
   try {
     const roleList: SagaReturnType<typeof getRoleList> = yield select(
-      getRoleList,
+      getRoleList
     );
     const regionsList: SagaReturnType<typeof getRegionsList> = yield select(
-      getRegionsList,
+      getRegionsList
     );
 
     if (

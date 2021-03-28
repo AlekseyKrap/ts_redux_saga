@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme: Theme) =>
     selectEmpty: {
       marginTop: theme.spacing(2),
     },
-  }),
+  })
 );
 
 export type TUseUserChange = {
@@ -29,7 +29,7 @@ export function useUserChange(): TUseUserChange {
 
   const listUsers = useSelector<AppState, TRMonitoring['listUsers']>(
     ({ monitoring_reducer }) => monitoring_reducer.get('listUsers'),
-    shallowEqual,
+    shallowEqual
   );
 
   useEffect(() => {
@@ -49,7 +49,7 @@ export function useUserChange(): TUseUserChange {
         dispatch(getUsersPage(val));
       }
     },
-    [setUser, dispatch],
+    [setUser, dispatch]
   );
 
   return {

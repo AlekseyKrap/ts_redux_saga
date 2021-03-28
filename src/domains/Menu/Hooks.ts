@@ -13,7 +13,7 @@ export function useMenu(): TUseMenu {
 
   const open = useSelector<AppState, TRMenu['isOpen']>(
     ({ menu_reducer }) => menu_reducer.get('isOpen'),
-    shallowEqual,
+    shallowEqual
   );
 
   const handleDrawerOpen = useCallback(() => {
